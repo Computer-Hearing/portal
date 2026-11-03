@@ -1,0 +1,47 @@
+:root {
+  --bg: #0b0d10;
+  --surface-1: #0f1317;
+  --surface-2: #12161b;
+  --surface-3: #181d23;
+  --surface-hover: #171c22;
+  --surface-tab-hover: #161b21;
+
+  --border-faint: #1c2128;
+  --border-soft: #1f252c;
+  --border-grid: #20262d;
+  --border: #252b33;
+  --border-strong: #2a313a;
+  --border-hover: #4a5360;
+
+  --text: #e9edf1;
+  --text-2: #c9d1d9;
+  --text-3: #b7c0ca;
+  --text-muted: #9ba5b1;
+  --text-disabled: #8c96a2;
+  --text-faint: #3b434d;
+
+  --accent: #ffb547;
+  --accent-hover: #ffc266;
+  --accent-link: #ffd08a;
+  --accent-ink: #1a1204;
+  --accent-soft: rgba(255, 181, 71, 0.5);
+  --accent-ring: rgba(255, 181, 71, 0.18);
+  --accent-ring-hover: rgba(255, 181, 71, 0.3);
+
+  --font-sans: 'Golos Text', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --container: calc(1360px + 2 * var(--gutter));
+  --gutter: 32px;
+  --control-h: 44px;
+
+  --radius-badge: 4px;
+  --radius-code: 6px;
+  --radius-control: 8px;
+  --radius-panel: 10px;
+  --radius-block: 12px;
+  --radius-card: 14px;
+  --radius-section: 16px;
+  --radius-modal: 18px;
+  --radius-pill: 999px;
+}

@@ -1,0 +1,51 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 28px;
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  text-decoration: none;
+  color: var(--text);
+  min-height: 240px;
+  box-sizing: border-box;
+}
+
+.card:hover {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.icon {
+  color: var(--accent);
+  display: flex;
+}
+
+.description {
+  color: var(--text-3);
+  flex: 1 1 auto;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font: 400 13px/1 var(--font-mono);
+  color: var(--text-muted);
+}
+
+.open {
+  color: var(--accent);
+}

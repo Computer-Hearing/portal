@@ -1,0 +1,789 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Компьютерный слух — главная</title>
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+<script src="./assets/2f526ec97c18c92584d2c9050461d556.js"></script>
+<script src="./assets/3a0eca26ce67d5adb0cd9db26f983924.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#0B0D10}
+a{color:#FFB547}a:hover{color:#FFD08A}
+.tab{appearance:none;border:0;background:transparent;color:#B7C0CA;font:500 15px/1 'Golos Text',system-ui,sans-serif;padding:0 16px;height:44px;border-radius:8px;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.tab:hover{color:#E9EDF1;background:#161B21}
+.tab-on{color:#0B0D10;background:#FFB547}
+.tab-on:hover{color:#0B0D10;background:#FFC266}
+.tab-off{cursor:default;color:#8C96A2}
+.tab-off:hover{background:transparent;color:#8C96A2}
+.pill{appearance:none;border:1px solid #2A313A;background:#12161B;color:#C9D1D9;font:500 14px/1 'Golos Text',system-ui,sans-serif;padding:0 16px;height:44px;border-radius:999px;cursor:pointer}
+.pill:hover{border-color:#4A5360;color:#E9EDF1}
+.pill-on{background:#E9EDF1;color:#0B0D10;border-color:#E9EDF1}
+.pill-on:hover{color:#0B0D10;border-color:#E9EDF1}
+.blk{appearance:none;width:100%;text-align:left;border:1px solid #252B33;background:#12161B;color:#E9EDF1;border-radius:12px;padding:16px 18px;cursor:pointer;display:flex;gap:14px;align-items:center;font-family:'Golos Text',system-ui,sans-serif;transition:border-color .15s,background .15s}
+.blk:hover,.blk-on{border-color:#FFB547;background:#171C22}
+.ln{fill:none;stroke:#FFB547;stroke-opacity:.5;stroke-width:1.5;stroke-dasharray:6 6;animation:dashmove 1.4s linear infinite}
+.ln-on{stroke-opacity:1;stroke-width:2.25}
+.hit{fill:none;stroke:transparent;stroke-width:18;pointer-events:stroke;cursor:pointer}
+@keyframes dashmove{to{stroke-dashoffset:-24}}
+.pt{position:absolute;width:30px;height:30px;margin:-15px 0 0 -15px;border:0;padding:0;background:transparent;cursor:pointer;border-radius:50%}
+.pt::after{content:'';position:absolute;left:8px;top:8px;width:14px;height:14px;border-radius:50%;background:#FFB547;box-shadow:0 0 0 3px rgba(255,181,71,.18)}
+.pt-best::after{background:#0B0D10;border:3px solid #FFB547;width:8px;height:8px}
+.pt:hover::after,.pt:focus-visible::after{box-shadow:0 0 0 6px rgba(255,181,71,.3)}
+.card-head{appearance:none;width:100%;text-align:left;background:transparent;border:0;color:inherit;padding:20px 20px 16px;cursor:pointer;font-family:'Golos Text',system-ui,sans-serif}
+.card-head:hover{background:#161B21}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 16px;border-radius:8px;font:500 14px/1 'Golos Text',system-ui,sans-serif;text-decoration:none;cursor:pointer;border:1px solid #2A313A;background:#181D23;color:#E9EDF1;box-sizing:border-box}
+.btn:hover{border-color:#4A5360;color:#E9EDF1}
+.btn-acc{background:#FFB547;border-color:#FFB547;color:#1A1204}
+.btn-acc:hover{background:#FFC266;border-color:#FFC266;color:#1A1204}
+.lnk{color:#FFB547;text-decoration:none;border-bottom:1px dashed rgba(255,181,71,.5)}
+.lnk:hover{color:#FFD08A;border-bottom-color:#FFD08A}
+.iconbtn{appearance:none;width:44px;height:44px;border-radius:8px;border:1px solid #2A313A;background:#181D23;color:#E9EDF1;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.iconbtn:hover{border-color:#4A5360}
+.logo{appearance:none;border:0;background:transparent;color:#E9EDF1;display:flex;align-items:center;gap:12px;cursor:pointer;padding:0;font-family:'Golos Text',system-ui,sans-serif;text-align:left}
+.tool{display:flex;flex-direction:column;gap:16px;padding:28px;border-radius:14px;border:1px solid #252B33;background:#12161B;text-decoration:none;color:#E9EDF1;min-height:240px;box-sizing:border-box}
+.tool:hover{border-color:#FFB547;color:#E9EDF1}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #0B0D10; color: #E9EDF1; font-family: 'Golos Text', system-ui, -apple-system, 'Segoe UI', sans-serif; font-size: 15px; line-height: 1.5">
+
+  <header style="position: sticky; top: 0; z-index: 20; background: #0B0D10; border-bottom: 1px solid #1C2128">
+    <div style="max-width: 1360px; margin: 0 auto; padding: 14px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+      <button class="logo" onClick="{{goHome}}" aria-label="На главную">
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true"><rect x="0.5" y="0.5" width="35" height="35" rx="9" stroke="#2A313A"></rect><path d="M8 18h2M13 13v10M18 9v18M23 13v10M28 18h-2" stroke="#FFB547" stroke-width="2" stroke-linecap="round"></path></svg>
+        <span style="display: flex; flex-direction: column; gap: 2px">
+          <span style="font-size: 16px; font-weight: 700; letter-spacing: -0.01em">Компьютерный слух</span>
+          <span style="font-size: 12px; color: #9BA5B1">для беспилотных автомобилей</span>
+        </span>
+      </button>
+      <nav aria-label="Разделы" style="display: flex; flex-wrap: wrap; gap: 4px">
+        <sc-for list="{{tabs}}" as="t" hint-placeholder-count="4">
+          <button class="{{t.cls}}" onClick="{{t.onClick}}" disabled="{{t.disabled}}" title="{{t.title}}">{{t.label}}<sc-if value="{{t.badge}}" hint-placeholder-val="{{ false }}"><span style="font: 500 11px/1 'JetBrains Mono', monospace; color: #9BA5B1; border: 1px solid #2A313A; border-radius: 4px; padding: 3px 5px">скоро</span></sc-if></button>
+        </sc-for>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ГЛАВНАЯ -->
+  <section style="display: {{homeDisplay}}">
+    <div ref="{{refs.hero}}" style="position: relative; max-width: 1360px; margin: 0 auto; padding: 40px 32px 48px; display: flex; flex-wrap: wrap; gap: 40px; align-items: stretch">
+      <div style="flex: 1 1 340px; max-width: 420px; display: flex; flex-direction: column; gap: 24px; position: relative; z-index: 2">
+        <div style="display: flex; flex-direction: column; gap: 14px">
+          <span style="font: 500 12px/1 'JetBrains Mono', monospace; letter-spacing: 0.12em; color: #FFB547">АКУСТИЧЕСКОЕ ВОСПРИЯТИЕ · ADS</span>
+          <h1 style="margin: 0; font-size: 44px; line-height: 1.05; font-weight: 700; letter-spacing: -0.025em">Автомобиль, который слышит</h1>
+          <p style="margin: 0; color: #B7C0CA; font-size: 16px">Массив микрофонов и нейросети распознают, что происходит вокруг машины и с самой машиной, и передают это в модули слияния данных и планирования движения.</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <span style="font: 500 12px/1 'JetBrains Mono', monospace; letter-spacing: 0.1em; color: #9BA5B1">ПОДПРОЕКТЫ</span>
+          <sc-for list="{{blocks}}" as="b" hint-placeholder-count="4">
+            <button class="{{b.cls}}" ref="{{b.ref}}" onClick="{{b.onClick}}" onMouseEnter="{{b.onEnter}}" onMouseLeave="{{b.onLeave}}" onFocus="{{b.onEnter}}" onBlur="{{b.onLeave}}">
+              <span style="flex: 0 0 auto; width: 48px; height: 48px; border-radius: 10px; background: #0B0D10; border: 1px solid #2A313A; display: flex; align-items: center; justify-content: center; font: 500 12px/1 'JetBrains Mono', monospace; color: #FFB547">{{b.code}}</span>
+              <span style="flex: 1 1 auto; display: flex; flex-direction: column; gap: 4px; min-width: 0">
+                <span style="font-size: 16px; font-weight: 600">{{b.name}}</span>
+                <span style="font-size: 13px; color: #9BA5B1">{{b.sub}}</span>
+                <span style="font: 400 12px/1.4 'JetBrains Mono', monospace; color: #B7C0CA">{{b.meta}}</span>
+              </span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9BA5B1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+            </button>
+          </sc-for>
+          <span style="font-size: 13px; color: #9BA5B1">Нажмите на блок или на пунктир, чтобы открыть подпроект.</span>
+        </div>
+      </div>
+
+      <div ref="{{refs.host}}" style="flex: 999 1 560px; min-width: 0; min-height: 640px; position: relative; border: 1px solid #1F252C; border-radius: 16px; background: #0F1317; overflow: hidden">
+        <canvas ref="{{refs.canvas}}" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: grab; touch-action: none" aria-label="3D-модель Volkswagen Golf VII, вращается мышью"></canvas>
+        <div style="position: absolute; left: 20px; top: 18px; display: flex; flex-direction: column; gap: 4px; pointer-events: none">
+          <span style="font: 500 12px/1 'JetBrains Mono', monospace; letter-spacing: 0.1em; color: #9BA5B1">ТЕСТОВАЯ ПЛАТФОРМА</span>
+          <span style="font-size: 18px; font-weight: 600">Volkswagen Golf VII</span>
+        </div>
+        <div style="position: absolute; right: 20px; bottom: 16px; display: flex; align-items: center; gap: 8px; color: #9BA5B1; font-size: 13px; pointer-events: none">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9BA5B1" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-3-6.7"></path><path d="M21 3v6h-6"></path></svg>
+          Потяните, чтобы вращать
+        </div>
+        <sc-if value="{{loading}}" hint-placeholder-val="{{ true }}">
+          <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; color: #B7C0CA; pointer-events: none">
+            <span style="width: 28px; height: 28px; border-radius: 50%; border: 2px solid #2A313A; border-top-color: #FFB547; animation: spin 0.9s linear infinite"></span>
+            <span style="font-size: 14px">{{loadText}}</span>
+          </div>
+        </sc-if>
+      </div>
+
+      <svg ref="{{refs.ov}}" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 3; overflow: visible" aria-hidden="true">
+        <rect ref="{{refs.r_diag}}" x="0" y="0" width="0" height="0" rx="10" class="{{lc.diag}}"></rect>
+        <path ref="{{refs.l_traffic}}" d="M0 0" class="{{lc.traffic}}"></path>
+        <path ref="{{refs.l_road0}}" d="M0 0" class="{{lc.road}}"></path>
+        <path ref="{{refs.l_road1}}" d="M0 0" class="{{lc.road}}"></path>
+        <path ref="{{refs.l_siren}}" d="M0 0" class="{{lc.siren}}"></path>
+        <path ref="{{refs.l_diag}}" d="M0 0" class="{{lc.diag}}"></path>
+        <path ref="{{refs.h_traffic}}" d="M0 0" class="hit" onClick="{{hits.traffic}}" onMouseEnter="{{hov.traffic}}" onMouseLeave="{{hov.none}}"></path>
+        <path ref="{{refs.h_road0}}" d="M0 0" class="hit" onClick="{{hits.road}}" onMouseEnter="{{hov.road}}" onMouseLeave="{{hov.none}}"></path>
+        <path ref="{{refs.h_road1}}" d="M0 0" class="hit" onClick="{{hits.road}}" onMouseEnter="{{hov.road}}" onMouseLeave="{{hov.none}}"></path>
+        <path ref="{{refs.h_siren}}" d="M0 0" class="hit" onClick="{{hits.siren}}" onMouseEnter="{{hov.siren}}" onMouseLeave="{{hov.none}}"></path>
+        <path ref="{{refs.h_diag}}" d="M0 0" class="hit" onClick="{{hits.diag}}" onMouseEnter="{{hov.diag}}" onMouseLeave="{{hov.none}}"></path>
+        <circle ref="{{refs.d_traffic}}" cx="-50" cy="-50" r="5" style="fill: #FFB547; stroke: #0B0D10; stroke-width: 2"></circle>
+        <circle ref="{{refs.d_road0}}" cx="-50" cy="-50" r="5" style="fill: #FFB547; stroke: #0B0D10; stroke-width: 2"></circle>
+        <circle ref="{{refs.d_road1}}" cx="-50" cy="-50" r="5" style="fill: #FFB547; stroke: #0B0D10; stroke-width: 2"></circle>
+        <circle ref="{{refs.d_siren}}" cx="-50" cy="-50" r="5" style="fill: #FFB547; stroke: #0B0D10; stroke-width: 2"></circle>
+        <text ref="{{refs.t_traffic}}" x="-500" y="-500" style="fill: #E9EDF1; font: 500 12px 'JetBrains Mono', monospace">передний сектор · трафик</text>
+        <text ref="{{refs.t_road}}" x="-500" y="-500" style="fill: #E9EDF1; font: 500 12px 'JetBrains Mono', monospace">колёса · шум шин</text>
+        <text ref="{{refs.t_siren}}" x="-500" y="-500" style="fill: #E9EDF1; font: 500 12px 'JetBrains Mono', monospace">мик. массив на крыше · сирены</text>
+        <text ref="{{refs.t_diag}}" x="-500" y="-500" style="fill: #E9EDF1; font: 500 12px 'JetBrains Mono', monospace">класс: VW Golf VII · состояние: [норма]</text>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ИНСТРУМЕНТЫ -->
+  <sc-if value="{{isTools}}" hint-placeholder-val="{{ false }}">
+    <section style="max-width: 1360px; margin: 0 auto; padding: 48px 32px 64px; display: flex; flex-direction: column; gap: 28px">
+      <div style="display: flex; flex-direction: column; gap: 8px">
+        <h2 style="margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -0.02em">Инструменты</h2>
+        <p style="margin: 0; color: #B7C0CA">Трекинг экспериментов, мониторинг и управление контейнерами инференса. Адреса ниже — заглушки, замените на адреса вашего стенда.</p>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px">
+        <a class="tool" href="http://localhost:5000" target="_blank" rel="noopener">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#FFB547" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6"></path><path d="M10 3v6l-5 9a2 2 0 0 0 1.7 3h10.6a2 2 0 0 0 1.7-3l-5-9V3"></path><path d="M7.5 14h9"></path></svg>
+          <span style="font-size: 22px; font-weight: 600">MLflow</span>
+          <span style="color: #B7C0CA; flex: 1 1 auto">Эксперименты, метрики обучения, реестр моделей и версии весов по всем четырём подпроектам.</span>
+          <span style="display: flex; justify-content: space-between; align-items: center; font: 400 13px/1 'JetBrains Mono', monospace; color: #9BA5B1">localhost:5000 <span style="color: #FFB547">Открыть →</span></span>
+        </a>
+        <a class="tool" href="http://localhost:3000" target="_blank" rel="noopener">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#FFB547" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20h18"></path><path d="M5 16l4-5 4 3 6-8"></path></svg>
+          <span style="font-size: 22px; font-weight: 600">Grafana</span>
+          <span style="color: #B7C0CA; flex: 1 1 auto">Дашборды инференса: задержка, загрузка GPU/CPU, частота срабатываний классов в реальном времени.</span>
+          <span style="display: flex; justify-content: space-between; align-items: center; font: 400 13px/1 'JetBrains Mono', monospace; color: #9BA5B1">localhost:3000 <span style="color: #FFB547">Открыть →</span></span>
+        </a>
+        <a class="tool" href="http://localhost:9000" target="_blank" rel="noopener">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#FFB547" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="6" rx="1.5"></rect><rect x="3" y="14" width="18" height="6" rx="1.5"></rect><path d="M7 7h.01M7 17h.01"></path></svg>
+          <span style="font-size: 22px; font-weight: 600">Portainer</span>
+          <span style="color: #B7C0CA; flex: 1 1 auto">Управление Docker-контейнерами сервисов инференса и API: запуск, логи, обновление образов.</span>
+          <span style="display: flex; justify-content: space-between; align-items: center; font: 400 13px/1 'JetBrains Mono', monospace; color: #9BA5B1">localhost:9000 <span style="color: #FFB547">Открыть →</span></span>
+        </a>
+      </div>
+    </section>
+  </sc-if>
+
+  <!-- ИНФОРМАЦИЯ -->
+  <sc-if value="{{isInfo}}" hint-placeholder-val="{{ false }}">
+    <section style="max-width: 1360px; margin: 0 auto; padding: 48px 32px 64px; display: flex; flex-direction: column; gap: 32px">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px">
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <h2 style="margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -0.02em">Карта моделей</h2>
+          <p style="margin: 0; color: #B7C0CA">Каждая точка — модель. По оси X — число параметров, по оси Y — accuracy на тестовой выборке.</p>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px" role="group" aria-label="Подпроект">
+          <sc-for list="{{infoPills}}" as="p" hint-placeholder-count="4"><button class="{{p.cls}}" onClick="{{p.onClick}}">{{p.name}}</button></sc-for>
+        </div>
+      </div>
+
+      <div style="border: 1px solid #252B33; border-radius: 16px; background: #12161B; padding: 24px; display: flex; flex-direction: column; gap: 16px">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; align-items: center">
+          <span style="font-size: 18px; font-weight: 600">{{info.name}}</span>
+          <div style="display: flex; flex-wrap: wrap; gap: 24px; font: 400 13px/1.4 'JetBrains Mono', monospace; color: #B7C0CA">
+            <span>моделей: <b style="color: #E9EDF1; font-weight: 500">{{info.st.count}}</b></span>
+            <span>лучшая acc: <b style="color: #E9EDF1; font-weight: 500">{{info.st.best}}</b></span>
+            <span>мин. размер: <b style="color: #E9EDF1; font-weight: 500">{{info.st.min}}</b></span>
+          </div>
+        </div>
+        <div style="position: relative; height: 460px; padding: 12px 16px 52px 64px; box-sizing: border-box">
+          <div style="position: relative; width: 100%; height: 100%">
+            <sc-for list="{{info.sc.yt}}" as="t" hint-placeholder-count="5">
+              <div style="position: absolute; left: 0; right: 0; top: {{t.top}}; border-top: 1px solid #20262D"><span style="position: absolute; right: calc(100% + 12px); top: -9px; font: 400 12px/1 'JetBrains Mono', monospace; color: #9BA5B1">{{t.label}}</span></div>
+            </sc-for>
+            <sc-for list="{{info.sc.xt}}" as="t" hint-placeholder-count="5">
+              <div style="position: absolute; top: 0; bottom: 0; left: {{t.left}}; border-left: 1px dashed #20262D"><span style="position: absolute; top: calc(100% + 12px); left: 0; transform: translateX(-50%); font: 400 12px/1 'JetBrains Mono', monospace; color: #9BA5B1; white-space: nowrap">{{t.label}}</span></div>
+            </sc-for>
+            <svg viewBox="0 0 100 100" preserveAspectRatio="none" style="position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible" aria-hidden="true"><polyline points="{{info.sc.pareto}}" style="fill: none; stroke: #FFB547; stroke-opacity: 0.5; stroke-width: 1.5; stroke-dasharray: 5 5; vector-effect: non-scaling-stroke"></polyline></svg>
+            <sc-for list="{{info.sc.pts}}" as="p" hint-placeholder-count="9">
+              <button class="{{p.cls}}" style="left: {{p.left}}; top: {{p.top}}" aria-label="{{p.aria}}" onMouseEnter="{{p.on}}" onFocus="{{p.on}}" onMouseLeave="{{p.off}}" onBlur="{{p.off}}" onClick="{{p.click}}"></button>
+            </sc-for>
+            <sc-if value="{{info.sc.tip}}" hint-placeholder-val="{{ false }}">
+              <div style="position: absolute; left: {{info.sc.tip.left}}; top: {{info.sc.tip.top}}; transform: {{info.sc.tip.tf}}; background: #E9EDF1; color: #0B0D10; border-radius: 8px; padding: 10px 12px; pointer-events: none; white-space: nowrap; z-index: 2; display: flex; flex-direction: column; gap: 2px">
+                <span style="font-weight: 600; font-size: 14px">{{info.sc.tip.name}}</span>
+                <span style="font: 400 12px/1.4 'JetBrains Mono', monospace">acc {{info.sc.tip.acc}} · {{info.sc.tip.params}} параметров</span>
+                <span style="font: 400 12px/1.4 'JetBrains Mono', monospace; color: #3B434D">{{info.sc.tip.arch}} · вход {{info.sc.tip.dims}}</span>
+              </div>
+            </sc-if>
+          </div>
+          <span style="position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); font-size: 13px; color: #9BA5B1">Число параметров</span>
+          <span style="position: absolute; left: 0; top: 50%; transform: translate(-30%, -50%) rotate(-90deg); font-size: 13px; color: #9BA5B1">Accuracy</span>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 24px; font-size: 13px; color: #B7C0CA">
+          <span style="display: inline-flex; align-items: center; gap: 8px"><span style="width: 12px; height: 12px; border-radius: 50%; background: #FFB547"></span>модель</span>
+          <span style="display: inline-flex; align-items: center; gap: 8px"><span style="width: 8px; height: 8px; border-radius: 50%; border: 3px solid #FFB547; background: #0B0D10"></span>на парето-фронте (лучшая точность при своём размере)</span>
+          <span>Клик по точке открывает карточку модели.</span>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 8px">
+        <h2 style="margin: 0; font-size: 26px; font-weight: 700; letter-spacing: -0.02em">Подпроекты и датасеты</h2>
+        <p style="margin: 0; color: #B7C0CA">Описания и цифры — заглушки, заполните реальными данными.</p>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 560px), 1fr)); gap: 20px">
+        <sc-for list="{{dsCards}}" as="d" hint-placeholder-count="4">
+          <article style="border: 1px solid {{d.border}}; border-radius: 16px; background: #12161B; padding: 24px; display: flex; flex-direction: column; gap: 18px">
+            <div style="display: flex; align-items: center; gap: 12px">
+              <span style="font: 500 12px/1 'JetBrains Mono', monospace; color: #FFB547; border: 1px solid #2A313A; border-radius: 6px; padding: 6px 8px">{{d.code}}</span>
+              <h3 style="margin: 0; font-size: 20px; font-weight: 600">{{d.name}}</h3>
+            </div>
+            <p style="margin: 0; color: #C9D1D9">{{d.desc}}</p>
+            <div style="display: flex; flex-direction: column; gap: 10px">
+              <span style="font: 500 12px/1 'JetBrains Mono', monospace; letter-spacing: 0.1em; color: #9BA5B1">ДАТАСЕТ · {{d.ds.name}}</span>
+              <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: #252B33; border: 1px solid #252B33; border-radius: 10px; overflow: hidden">
+                <sc-for list="{{d.stats}}" as="s" hint-placeholder-count="6">
+                  <div style="background: #12161B; padding: 12px 14px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #9BA5B1">{{s.k}}</span><span style="font: 500 14px/1.3 'JetBrains Mono', monospace">{{s.v}}</span></div>
+                </sc-for>
+              </div>
+              <p style="margin: 0; font-size: 14px; color: #B7C0CA">{{d.ds.note}}</p>
+              <div style="display: flex; flex-wrap: wrap; gap: 6px">
+                <sc-for list="{{d.classes}}" as="c" hint-placeholder-count="6"><span style="font-size: 12px; color: #C9D1D9; background: #181D23; border: 1px solid #252B33; border-radius: 999px; padding: 4px 10px">{{c}}</span></sc-for>
+              </div>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto">
+              <a class="btn" href="#">Kaggle · {{d.ds.slug}}</a>
+              <a class="btn" href="#">Google Drive · сырые записи</a>
+            </div>
+          </article>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <!-- МОДЕЛИ -->
+  <sc-if value="{{isModels}}" hint-placeholder-val="{{ false }}">
+    <section style="max-width: 1360px; margin: 0 auto; padding: 48px 32px 64px; display: flex; flex-direction: column; gap: 28px">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px">
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <h2 style="margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -0.02em">Модели</h2>
+          <p style="margin: 0; color: #B7C0CA">Веса PyTorch (.pt) и ONNX для каждой модели. Нажмите на карточку, чтобы увидеть детали обучения и размерности.</p>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px" role="group" aria-label="Подпроект">
+          <sc-for list="{{modelPills}}" as="p" hint-placeholder-count="4"><button class="{{p.cls}}" onClick="{{p.onClick}}">{{p.name}}</button></sc-for>
+        </div>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 16px; align-items: start">
+        <sc-for list="{{cards}}" as="c" hint-placeholder-count="9">
+          <article style="border: 1px solid {{c.border}}; border-radius: 14px; background: #12161B; overflow: hidden; display: flex; flex-direction: column">
+            <button class="card-head" onClick="{{c.toggle}}" aria-expanded="{{c.open}}">
+              <span style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px">
+                <span style="display: flex; flex-direction: column; gap: 4px; min-width: 0">
+                  <span style="font-size: 17px; font-weight: 600">{{c.name}}</span>
+                  <span style="font: 400 12px/1.4 'JetBrains Mono', monospace; color: #9BA5B1">{{c.arch}}</span>
+                </span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9BA5B1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; transform: {{c.rot}}; transition: transform .15s"><path d="M6 9l6 6 6-6"></path></svg>
+              </span>
+              <span style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 16px">
+                <span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 12px; color: #9BA5B1">Accuracy</span><span style="font: 500 16px/1.2 'JetBrains Mono', monospace; color: #FFB547">{{c.acc}}</span></span>
+                <span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 12px; color: #9BA5B1">Параметры</span><span style="font: 500 16px/1.2 'JetBrains Mono', monospace">{{c.params}}</span></span>
+                <span style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-size: 12px; color: #9BA5B1">Датасет</span><span style="font: 500 13px/1.3 'JetBrains Mono', monospace; overflow-wrap: anywhere">{{c.ds}}</span></span>
+              </span>
+            </button>
+            <sc-if value="{{c.open}}" hint-placeholder-val="{{ false }}">
+              <div style="border-top: 1px solid #252B33; padding: 16px 20px; display: flex; flex-direction: column; gap: 12px; background: #0F1317; font-size: 14px">
+                <div style="display: flex; justify-content: space-between; gap: 12px"><span style="color: #9BA5B1">Ноутбук обучения</span><a class="lnk" href="#" style="font: 400 13px/1.4 'JetBrains Mono', monospace; text-align: right; overflow-wrap: anywhere">{{c.nb}}</a></div>
+                <div style="display: flex; justify-content: space-between; gap: 12px"><span style="color: #9BA5B1">Датасет</span><a class="lnk" href="#" style="font: 400 13px/1.4 'JetBrains Mono', monospace; text-align: right">kaggle · {{c.dsSlug}}</a></div>
+                <div style="display: flex; justify-content: space-between; gap: 12px"><span style="color: #9BA5B1">Вход (мел × кадры)</span><span style="font: 500 13px/1.4 'JetBrains Mono', monospace">{{c.inShape}}</span></div>
+                <div style="display: flex; justify-content: space-between; gap: 12px"><span style="color: #9BA5B1">Выход (классы)</span><span style="font: 500 13px/1.4 'JetBrains Mono', monospace">{{c.outShape}}</span></div>
+                <div style="display: flex; justify-content: space-between; gap: 12px"><span style="color: #9BA5B1">ID для API</span><span style="font: 500 13px/1.4 'JetBrains Mono', monospace">{{c.id}}</span></div>
+              </div>
+            </sc-if>
+            <div style="display: flex; gap: 8px; padding: 0 20px 20px; margin-top: 4px">
+              <a class="btn" href="#" style="flex: 1 1 0">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"></path></svg>Веса .pt</a>
+              <a class="btn btn-acc" href="#" style="flex: 1 1 0">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"></path></svg>ONNX</a>
+            </div>
+          </article>
+        </sc-for>
+      </div>
+
+      <div style="border: 1px solid #252B33; border-radius: 16px; background: #12161B; padding: 28px; display: flex; flex-wrap: wrap; gap: 28px">
+        <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px">
+          <span style="font: 500 12px/1 'JetBrains Mono', monospace; letter-spacing: 0.1em; color: #FFB547">REST API</span>
+          <h3 style="margin: 0; font-size: 22px; font-weight: 600">Модели можно скачивать через API</h3>
+          <p style="margin: 0; color: #B7C0CA">Список моделей подпроекта, веса PyTorch и ONNX доступны по HTTP — удобно для CI и для обновления моделей на борту. Хост и токен — заглушки.</p>
+        </div>
+        <div style="flex: 999 1 520px; min-width: 0; overflow-x: auto; background: #0B0D10; border: 1px solid #1F252C; border-radius: 10px">
+<pre style="margin: 0; padding: 20px; font: 400 13px/1.7 'JetBrains Mono', monospace; color: #C9D1D9"><span style="color: #8C96A2"># Список моделей подпроекта (traffic | road | siren | diag)</span>
+GET  https://[API_HOST]/api/v1/models?project=road
+
+<span style="color: #8C96A2"># Скачать веса или ONNX по ID модели</span>
+GET  https://[API_HOST]/api/v1/models/{model_id}/weights   <span style="color: #8C96A2">→ .pt</span>
+GET  https://[API_HOST]/api/v1/models/{model_id}/onnx      <span style="color: #8C96A2">→ .onnx</span>
+
+curl -H "Authorization: Bearer $TOKEN" -o model.onnx \
+  https://[API_HOST]/api/v1/models/road-tirespeccnn/onnx</pre>
+        </div>
+      </div>
+    </section>
+  </sc-if>
+
+  <footer style="border-top: 1px solid #1C2128">
+    <div style="max-width: 1360px; margin: 0 auto; padding: 20px 32px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 13px; color: #9BA5B1">
+      <span>Компьютерный слух для беспилотных автомобилей · [название команды]</span>
+      <span>3D-модель: Volkswagen Golf VII</span>
+    </div>
+  </footer>
+
+  <!-- МОДАЛЬНОЕ ОКНО ПОДПРОЕКТА -->
+  <sc-if value="{{m}}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{closeBackdrop}}" style="position: fixed; inset: 0; z-index: 50; background: rgba(5, 7, 9, 0.78); display: flex; align-items: flex-start; justify-content: center; padding: 40px 20px; overflow-y: auto; box-sizing: border-box">
+      <div role="dialog" aria-modal="true" aria-label="{{m.name}}" style="width: 100%; max-width: 1080px; background: #12161B; border: 1px solid #2A313A; border-radius: 18px; display: flex; flex-direction: column">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 24px 28px; border-bottom: 1px solid #252B33">
+          <div style="display: flex; flex-direction: column; gap: 8px">
+            <span style="font: 500 12px/1 'JetBrains Mono', monospace; letter-spacing: 0.1em; color: #FFB547">{{m.code}} · ПОДПРОЕКТ</span>
+            <h2 style="margin: 0; font-size: 28px; font-weight: 700; letter-spacing: -0.02em">{{m.name}}</h2>
+          </div>
+          <button class="iconbtn" onClick="{{closeModal}}" aria-label="Закрыть"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+        </div>
+        <div style="padding: 24px 28px; display: flex; flex-wrap: wrap; gap: 28px">
+          <div style="flex: 1 1 340px; display: flex; flex-direction: column; gap: 18px">
+            <p style="margin: 0; color: #C9D1D9; font-size: 16px">{{m.desc}}</p>
+            <div style="display: flex; flex-direction: column; gap: 10px">
+              <span style="font: 500 12px/1 'JetBrains Mono', monospace; letter-spacing: 0.1em; color: #9BA5B1">ДАТАСЕТ · {{m.ds.name}}</span>
+              <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: #252B33; border: 1px solid #252B33; border-radius: 10px; overflow: hidden">
+                <sc-for list="{{m.stats}}" as="s" hint-placeholder-count="6">
+                  <div style="background: #12161B; padding: 10px 12px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #9BA5B1">{{s.k}}</span><span style="font: 500 13px/1.3 'JetBrains Mono', monospace">{{s.v}}</span></div>
+                </sc-for>
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px">
+              <span style="font: 500 12px/1 'JetBrains Mono', monospace; letter-spacing: 0.1em; color: #9BA5B1">КЛАССЫ</span>
+              <div style="display: flex; flex-wrap: wrap; gap: 6px">
+                <sc-for list="{{m.classes}}" as="c" hint-placeholder-count="6"><span style="font-size: 12px; color: #C9D1D9; background: #181D23; border: 1px solid #252B33; border-radius: 999px; padding: 4px 10px">{{c}}</span></sc-for>
+              </div>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 10px">
+              <a class="btn" href="#">Kaggle · {{m.ds.slug}}</a>
+              <a class="btn" href="#">Google Drive</a>
+            </div>
+          </div>
+          <div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 10px">
+            <span style="font: 500 12px/1 'JetBrains Mono', monospace; letter-spacing: 0.1em; color: #9BA5B1">КАРТА МОДЕЛЕЙ · ПАРАМЕТРЫ × ACCURACY</span>
+            <div style="position: relative; height: 300px; padding: 10px 12px 44px 56px; box-sizing: border-box; background: #0F1317; border: 1px solid #1F252C; border-radius: 12px">
+              <div style="position: relative; width: 100%; height: 100%">
+                <sc-for list="{{m.sc.yt}}" as="t" hint-placeholder-count="5">
+                  <div style="position: absolute; left: 0; right: 0; top: {{t.top}}; border-top: 1px solid #20262D"><span style="position: absolute; right: calc(100% + 10px); top: -8px; font: 400 11px/1 'JetBrains Mono', monospace; color: #9BA5B1">{{t.label}}</span></div>
+                </sc-for>
+                <sc-for list="{{m.sc.xt}}" as="t" hint-placeholder-count="5">
+                  <div style="position: absolute; top: 0; bottom: 0; left: {{t.left}}; border-left: 1px dashed #20262D"><span style="position: absolute; top: calc(100% + 10px); left: 0; transform: translateX(-50%); font: 400 11px/1 'JetBrains Mono', monospace; color: #9BA5B1; white-space: nowrap">{{t.label}}</span></div>
+                </sc-for>
+                <svg viewBox="0 0 100 100" preserveAspectRatio="none" style="position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible" aria-hidden="true"><polyline points="{{m.sc.pareto}}" style="fill: none; stroke: #FFB547; stroke-opacity: 0.5; stroke-width: 1.5; stroke-dasharray: 5 5; vector-effect: non-scaling-stroke"></polyline></svg>
+                <sc-for list="{{m.sc.pts}}" as="p" hint-placeholder-count="9">
+                  <button class="{{p.cls}}" style="left: {{p.left}}; top: {{p.top}}" aria-label="{{p.aria}}" onMouseEnter="{{p.on}}" onFocus="{{p.on}}" onMouseLeave="{{p.off}}" onBlur="{{p.off}}" onClick="{{p.click}}"></button>
+                </sc-for>
+                <sc-if value="{{m.sc.tip}}" hint-placeholder-val="{{ false }}">
+                  <div style="position: absolute; left: {{m.sc.tip.left}}; top: {{m.sc.tip.top}}; transform: {{m.sc.tip.tf}}; background: #E9EDF1; color: #0B0D10; border-radius: 8px; padding: 8px 10px; pointer-events: none; white-space: nowrap; z-index: 2; display: flex; flex-direction: column; gap: 2px">
+                    <span style="font-weight: 600; font-size: 13px">{{m.sc.tip.name}}</span>
+                    <span style="font: 400 12px/1.4 'JetBrains Mono', monospace">acc {{m.sc.tip.acc}} · {{m.sc.tip.params}}</span>
+                  </div>
+                </sc-if>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="padding: 0 28px 24px; display: flex; flex-direction: column; gap: 12px">
+          <span style="font: 500 12px/1 'JetBrains Mono', monospace; letter-spacing: 0.1em; color: #9BA5B1">МОДЕЛИ ПОДПРОЕКТА · {{m.count}}</span>
+          <div style="overflow-x: auto; border: 1px solid #252B33; border-radius: 10px">
+            <table style="width: 100%; border-collapse: collapse; font-size: 14px; min-width: 620px">
+              <thead>
+                <tr style="background: #0F1317; color: #9BA5B1; text-align: left">
+                  <th style="padding: 10px 14px; font-weight: 500">Модель</th>
+                  <th style="padding: 10px 14px; font-weight: 500">Архитектура</th>
+                  <th style="padding: 10px 14px; font-weight: 500">Accuracy</th>
+                  <th style="padding: 10px 14px; font-weight: 500">Параметры</th>
+                  <th style="padding: 10px 14px; font-weight: 500">Вход</th>
+                  <th style="padding: 10px 14px; font-weight: 500">Выход</th>
+                </tr>
+              </thead>
+              <tbody>
+                <sc-for list="{{m.rows}}" as="r" hint-placeholder-count="8">
+                  <tr style="border-top: 1px solid #20262D">
+                    <td style="padding: 10px 14px; font-weight: 600">{{r.name}}</td>
+                    <td style="padding: 10px 14px; color: #B7C0CA">{{r.arch}}</td>
+                    <td style="padding: 10px 14px; font-family: 'JetBrains Mono', monospace; color: #FFB547">{{r.acc}}</td>
+                    <td style="padding: 10px 14px; font-family: 'JetBrains Mono', monospace">{{r.params}}</td>
+                    <td style="padding: 10px 14px; font-family: 'JetBrains Mono', monospace">{{r.dims}}</td>
+                    <td style="padding: 10px 14px; font-family: 'JetBrains Mono', monospace">{{r.out}}</td>
+                  </tr>
+                </sc-for>
+              </tbody>
+            </table>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-end">
+            <button class="btn" onClick="{{m.toInfo}}">Карта во вкладке «Информация»</button>
+            <button class="btn btn-acc" onClick="{{m.toModels}}">Скачать модели →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"autoRotate":{"editor":"boolean","default":true},"rotateSpeed":{"editor":"range","default":0.9,"min":0,"max":3,"step":0.1},"$preview":{"width":1440,"height":1000}}'>
+var MODEL_URL = './assets/8b192771322ce3a132a10f98a6aff693.txt';
+
+var PROJECTS = [
+  { id: 'traffic', code: 'TRF', name: 'Распознавание трафика', short: 'Трафик', sub: 'Что делают участники движения вокруг', out: 8,
+    desc: '[Заглушка] Модели классифицируют акустическую сцену вокруг автомобиля: приближение и удаление транспорта, обгон, торможение, разгон, звуковой сигнал. По многоканальному массиву микрофонов оценивается направление на источник. Результат уходит в модуль слияния данных вместе с камерой и лидаром — звук помогает заметить то, что скрыто за препятствием.',
+    classes: ['Приближается', 'Удаляется', 'Обгон', 'Торможение', 'Разгон', 'Холостой ход', 'Звуковой сигнал', 'Фон'],
+    ds: { name: 'UrbanTraffic-Audio', slug: 'urban-traffic-audio', hours: '[42 ч]', clips: '[18 600]', sr: '16 кГц', ch: '4 канала', split: '70 / 15 / 15', note: '[Заглушка] Записи на перекрёстках, трассах и во дворах; разметка по 1-секундным окнам с направлением на источник.' } },
+  { id: 'road', code: 'SRF', name: 'Тип дорожного покрытия', short: 'Покрытие', sub: 'Покрытие и его состояние по шуму шин', out: 6,
+    desc: '[Заглушка] По шуму шин определяется тип и состояние покрытия: сухой и мокрый асфальт, гравий, брусчатка, снег, грунт. Микрофоны стоят в колёсных арках. Выход используется для оценки сцепления в планировщике движения и системах ABS/ESP.',
+    classes: ['Сухой асфальт', 'Мокрый асфальт', 'Гравий', 'Брусчатка', 'Снег', 'Грунт'],
+    ds: { name: 'TireRoad-Noise', slug: 'tire-road-noise', hours: '[26 ч]', clips: '[9 400]', sr: '22.05 кГц', ch: '2 канала (арки)', split: '75 / 10 / 15', note: '[Заглушка] Заезды на скоростях 20–110 км/ч по шести типам покрытия, сухая и мокрая погода, летняя и зимняя резина.' } },
+  { id: 'siren', code: 'SRN', name: 'Распознавание сирен', short: 'Сирены', sub: 'Спецтранспорт раньше, чем его видят камеры', out: 4,
+    desc: '[Заглушка] Обнаружение сирен экстренных служб (wail, yelp, hi-lo) раньше, чем спецтранспорт попадает в поле зрения камер. Модель работает потоково с окном 1 с, выдаёт вероятность и тип сирены; планировщик готовит манёвр, чтобы уступить дорогу.',
+    classes: ['Нет сирены', 'Wail', 'Yelp', 'Hi-Lo'],
+    ds: { name: 'EmergencySiren-Mix', slug: 'emergency-siren-mix', hours: '[11 ч]', clips: '[7 200]', sr: '16 кГц', ch: '1–4 канала', split: '70 / 15 / 15', note: '[Заглушка] Сирены скорой, полиции и пожарных, смешанные с городским шумом при разных SNR, плюс записи с эффектом Доплера.' } },
+  { id: 'diag', code: 'DGN', name: 'Диагностика авто', short: 'Диагностика', sub: 'Состояние машины в целом по звуку', out: 10,
+    desc: '[Заглушка] Акустическая диагностика собственного автомобиля: стук двигателя, износ ремня, тормозных колодок, подшипников ступицы, неисправности выхлопной системы. Классифицируется состояние машины в целом — от «исправно» до конкретной неисправности — с передачей в систему мониторинга.',
+    classes: ['Исправно', 'Стук двигателя', 'Ремень ГРМ', 'Тормозные колодки', 'Подшипник ступицы', 'Выхлопная система', 'Генератор', 'Насос ГУР', 'Турбина', 'Подвеска'],
+    ds: { name: 'CarHealth-Sound', slug: 'carhealth-sound', hours: '[34 ч]', clips: '[12 900]', sr: '44.1 кГц', ch: '1 канал (подкапотный)', split: '70 / 15 / 15', note: '[Заглушка] Записи исправных и неисправных автомобилей в сервисах, подтверждённые диагностикой мастера.' } }
+];
+
+/* [имя, параметры, accuracy, вход (мел × кадры), архитектура] */
+var MODELS = {
+  traffic: [
+    ['TrafficCRNN-S', 182400, 0.781, '128 × 128', 'CRNN'],
+    ['TrafficCRNN-M', 534200, 0.832, '128 × 256', 'CRNN'],
+    ['AudioMobileNet-T', 312800, 0.806, '256 × 128', 'MobileNetV3'],
+    ['PANN-Lite', 1124000, 0.871, '256 × 173', 'CNN14 (pruned)'],
+    ['SEDNet-Tiny', 146500, 0.742, '128 × 128', 'SED CNN'],
+    ['TCN-Doppler', 688900, 0.848, '256 × 173', 'TCN'],
+    ['ConvMixer-A', 905300, 0.859, '128 × 256', 'ConvMixer'],
+    ['ResNet8-Mel', 421700, 0.817, '256 × 128', 'ResNet'],
+    ['AST-Distill-XS', 1462000, 0.889, '256 × 173', 'Audio Spectrogram Transformer'],
+    ['GRU-Flow', 247600, 0.768, '128 × 128', 'CNN + GRU']
+  ],
+  road: [
+    ['RoadNet-S', 128900, 0.713, '128 × 128', 'CNN'],
+    ['RoadNet-M', 402300, 0.776, '128 × 256', 'CNN'],
+    ['TireSpecCNN', 615400, 0.812, '256 × 173', 'CNN'],
+    ['EfficientAudio-B0s', 978200, 0.847, '256 × 128', 'EfficientNet-B0 (slim)'],
+    ['ResNet10-Surface', 753100, 0.829, '128 × 256', 'ResNet'],
+    ['ConvLSTM-Road', 1218000, 0.861, '256 × 173', 'ConvLSTM'],
+    ['MobileViT-Audio-XXS', 1389000, 0.882, '256 × 128', 'MobileViT'],
+    ['DSCNN-Grip', 274500, 0.758, '128 × 128', 'DS-CNN'],
+    ['WetDetect-Tiny', 168700, 0.734, '128 × 128', 'CNN']
+  ],
+  siren: [
+    ['SirenCNN-T', 104300, 0.796, '128 × 128', 'CNN'],
+    ['SirenCNN-S', 236900, 0.832, '128 × 256', 'CNN'],
+    ['EmergencyNet', 512600, 0.864, '256 × 128', 'CNN + Attention'],
+    ['YAMNet-Prune', 1047000, 0.887, '256 × 173', 'MobileNetV1'],
+    ['CRNN-Doppler', 689200, 0.853, '256 × 173', 'CRNN'],
+    ['HarmonicNet', 341800, 0.818, '128 × 256', 'Harmonic CNN'],
+    ['DCASE-Base', 1295000, 0.893, '256 × 128', 'CNN10'],
+    ['WailYelp-GRU', 158400, 0.771, '128 × 128', 'GRU']
+  ],
+  diag: [
+    ['EngineSound-S', 207300, 0.724, '128 × 128', 'CNN'],
+    ['EngineSound-M', 588100, 0.791, '128 × 256', 'CNN'],
+    ['KnockNet', 344600, 0.756, '256 × 128', 'CNN'],
+    ['BearingCNN', 731900, 0.814, '256 × 173', 'CNN'],
+    ['MIMII-AE-Clf', 952400, 0.832, '128 × 256', 'Autoencoder + классификатор'],
+    ['WaveNet-Diag', 1187000, 0.857, '256 × 173', 'WaveNet'],
+    ['ResNet12-Diag', 1436000, 0.874, '256 × 128', 'ResNet'],
+    ['TCN-Vibro', 466200, 0.779, '128 × 128', 'TCN'],
+    ['ConvNeXt-Audio-P', 1312000, 0.866, '256 × 173', 'ConvNeXt (pico)'],
+    ['BeltSqueal-T', 126800, 0.702, '128 × 128', 'CNN'],
+    ['HybridSpec-Former', 1074000, 0.848, '128 × 256', 'CNN + Transformer']
+  ]
+};
+
+var REF_NAMES = ['hero', 'host', 'canvas', 'ov', 'r_diag', 'l_traffic', 'l_road0', 'l_road1', 'l_siren', 'l_diag', 'h_traffic', 'h_road0', 'h_road1', 'h_siren', 'h_diag', 'd_traffic', 'd_road0', 'd_road1', 'd_siren', 't_traffic', 't_road', 't_siren', 't_diag', 'blk0', 'blk1', 'blk2', 'blk3'];
+
+function fmtP(p) { return p >= 1000000 ? (p / 1000000).toFixed(2) + ' M' : Math.round(p / 1000) + ' K'; }
+function slug(s) { return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }
+function proj(id) { for (var i = 0; i < PROJECTS.length; i++) if (PROJECTS[i].id === id) return PROJECTS[i]; return PROJECTS[0]; }
+
+class Component extends DCLogic {
+  componentDidMount() {
+    this.state = this.state || {};
+    this._loop = this._loop.bind(this);
+    this._tryInit();
+  }
+  componentWillUnmount() {
+    this._dead = true;
+    if (this._raf) cancelAnimationFrame(this._raf);
+    if (this._to) clearTimeout(this._to);
+    if (this._ro) this._ro.disconnect();
+    if (this._renderer) this._renderer.dispose();
+  }
+  _ref(name) {
+    this._refs = this._refs || {};
+    this._els = this._els || {};
+    var self = this;
+    if (!this._refs[name]) this._refs[name] = function (el) { self._els[name] = el; if (el && (name === 'canvas' || name === 'host')) self._tryInit(); };
+    return this._refs[name];
+  }
+  _tryInit() {
+    var E = this._els || {};
+    if (this._inited || this._dead || !E.canvas || !E.host) return;
+    var T = window.THREE;
+    if (!T || !T.GLTFLoader || !T.OrbitControls) {
+      this._tries = (this._tries || 0) + 1;
+      if (this._tries < 150) { var s = this; this._to = setTimeout(function () { s._tryInit(); }, 100); }
+      else this.setState({ err: 'Не удалось загрузить 3D-движок' });
+      return;
+    }
+    this._inited = true;
+    if (!this._loop.name || this._loop.name.indexOf('bound') !== 0) this._loop = this._loop.bind(this);
+    var renderer = new T.WebGLRenderer({ canvas: E.canvas, antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.outputEncoding = T.sRGBEncoding;
+    renderer.toneMapping = T.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.0;
+    renderer.setClearColor(0x000000, 0);
+    var scene = new T.Scene();
+    if (T.RoomEnvironment) {
+      var pm = new T.PMREMGenerator(renderer);
+      scene.environment = pm.fromScene(new T.RoomEnvironment(), 0.04).texture;
+    }
+    scene.add(new T.HemisphereLight(0xdfe8ff, 0x15181c, 0.5));
+    var dl = new T.DirectionalLight(0xffffff, 1.1); dl.position.set(4, 8, 5); scene.add(dl);
+    var cam = new T.PerspectiveCamera(30, 1, 0.1, 100);
+    cam.position.set(6.4, 2.7, 6.0);
+    var ctl = new T.OrbitControls(cam, E.canvas);
+    ctl.target.set(0, 0.55, 0);
+    ctl.enableDamping = true; ctl.dampingFactor = 0.08;
+    ctl.enablePan = false; ctl.minDistance = 5.5; ctl.maxDistance = 12;
+    ctl.maxPolarAngle = Math.PI * 0.47; ctl.minPolarAngle = Math.PI * 0.18;
+    ctl.update();
+
+    var grid = new T.PolarGridHelper(5.5, 16, 6, 96, 0x232a32, 0x1a2027);
+    grid.position.y = 0.001; scene.add(grid);
+
+    var sc = document.createElement('canvas'); sc.width = sc.height = 256;
+    var g2 = sc.getContext('2d'); var gr = g2.createRadialGradient(128, 128, 10, 128, 128, 128);
+    gr.addColorStop(0, 'rgba(0,0,0,0.85)'); gr.addColorStop(1, 'rgba(0,0,0,0)');
+    g2.fillStyle = gr; g2.fillRect(0, 0, 256, 256);
+    var shadow = new T.Mesh(new T.PlaneGeometry(3.0, 5.6), new T.MeshBasicMaterial({ map: new T.CanvasTexture(sc), transparent: true, depthWrite: false }));
+    shadow.rotation.x = -Math.PI / 2; shadow.position.y = 0.003; scene.add(shadow);
+
+    this._rings = [];
+    for (var i = 0; i < 3; i++) {
+      var ring = new T.Mesh(new T.RingGeometry(0.985, 1, 128), new T.MeshBasicMaterial({ color: 0xffb547, transparent: true, depthWrite: false, side: T.DoubleSide }));
+      ring.rotation.x = -Math.PI / 2; ring.position.y = 0.005; scene.add(ring); this._rings.push(ring);
+    }
+
+    this._renderer = renderer; this._scene = scene; this._cam = cam; this._ctl = ctl;
+    var self = this;
+    var resize = function () {
+      var w = E.host.clientWidth, h = E.host.clientHeight;
+      if (!w || !h) return;
+      renderer.setSize(w, h, false); cam.aspect = w / h; cam.updateProjectionMatrix();
+    };
+    resize();
+    if (window.ResizeObserver) { this._ro = new ResizeObserver(resize); this._ro.observe(E.host); }
+    this._resize = resize;
+
+    fetch(MODEL_URL).then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.text(); }).then(function (txt) {
+      var bin = atob(txt.trim()); var n = bin.length; var u = new Uint8Array(n);
+      for (var k = 0; k < n; k++) u[k] = bin.charCodeAt(k);
+      new T.GLTFLoader().parse(u.buffer, '', function (gl) { self._onModel(gl); }, function () { self.setState({ err: 'Ошибка разбора 3D-модели' }); });
+    }).catch(function () { self.setState({ err: 'Не удалось загрузить 3D-модель' }); });
+
+    this._raf = requestAnimationFrame(this._loop);
+  }
+  _onModel(gl) {
+    if (this._dead) return;
+    var T = window.THREE;
+    var box = new T.Box3().setFromObject(gl.scene);
+    var c = box.getCenter(new T.Vector3());
+    var group = new T.Group(); group.add(gl.scene);
+    group.position.set(-c.x, -box.min.y, -c.z);
+    this._scene.add(group);
+    this._group = group;
+    this._box = box;
+    var V = function (x, y, z) { return new T.Vector3(x, y, z); };
+    this._anchors = {
+      wheels: [V(0.77, 0.40, 1.505), V(-0.77, 0.40, 1.505), V(0.75, 0.42, -1.13), V(-0.75, 0.42, -1.13)],
+      front: V(0, 0.62, box.max.z - 0.05),
+      roof: V(0, box.max.y - 0.02, c.z - 0.25)
+    };
+    this.setState({ loaded: true });
+  }
+  _loop() {
+    if (this._dead) return;
+    this._raf = requestAnimationFrame(this._loop);
+    var view = (this.state && this.state.view) || 'home';
+    if (view !== 'home' || document.hidden || !this._renderer) return;
+    var E = this._els;
+    if (E.host && (this._lw !== E.host.clientWidth || this._lh !== E.host.clientHeight)) { this._lw = E.host.clientWidth; this._lh = E.host.clientHeight; this._resize(); }
+    var ar = this.props.autoRotate; this._ctl.autoRotate = ar === undefined ? true : !!ar;
+    var sp = this.props.rotateSpeed; this._ctl.autoRotateSpeed = sp === undefined ? 0.9 : sp;
+    this._ctl.update();
+    var t = performance.now() / 1000;
+    for (var i = 0; i < this._rings.length; i++) {
+      var f = (t * 0.22 + i / this._rings.length) % 1;
+      var s = 2.6 + f * 2.8; this._rings[i].scale.set(s, s, s);
+      this._rings[i].material.opacity = (1 - f) * 0.45;
+    }
+    this._renderer.render(this._scene, this._cam);
+    this._overlay();
+  }
+  _overlay() {
+    var E = this._els, hero = E.hero, host = E.host, svg = E.ov;
+    if (!hero || !host || !svg) return;
+    var hr = hero.getBoundingClientRect(), cr = host.getBoundingClientRect();
+    var side = cr.left - hr.left > 200 && Math.abs(cr.top - hr.top) < 140;
+    if (!side || !this._group) { svg.style.display = 'none'; return; }
+    svg.style.display = '';
+    var T = window.THREE, cam = this._cam, grp = this._group;
+    grp.updateMatrixWorld();
+    var center = new T.Vector3(0, 0.55, 0); var cd = center.distanceTo(cam.position);
+    var pr = function (v) {
+      var w = v.clone().applyMatrix4(grp.matrixWorld); var d = w.distanceTo(cam.position); var p = w.project(cam);
+      return { x: cr.left - hr.left + (p.x + 1) / 2 * cr.width, y: cr.top - hr.top + (1 - p.y) / 2 * cr.height, d: d };
+    };
+    var st = function (i) { var b = E['blk' + i]; if (!b) return { x: 0, y: 0 }; var r = b.getBoundingClientRect(); return { x: r.right - hr.left, y: r.top + r.height / 2 - hr.top }; };
+    var cv = function (s, e) { var dx = Math.max(50, (e.x - s.x) * 0.45); return 'M' + s.x.toFixed(1) + ' ' + s.y.toFixed(1) + ' C' + (s.x + dx).toFixed(1) + ' ' + s.y.toFixed(1) + ' ' + (e.x - dx).toFixed(1) + ' ' + e.y.toFixed(1) + ' ' + e.x.toFixed(1) + ' ' + e.y.toFixed(1); };
+    var set = function (n, a) { var el = E[n]; if (el) for (var k in a) el.setAttribute(k, a[k]); };
+    var op = function (p) { return p.d > cd + 0.3 ? '0.35' : '1'; };
+    var A = this._anchors;
+
+    var s0 = st(0), e0 = pr(A.front), d0 = cv(s0, e0);
+    set('l_traffic', { d: d0 }); set('h_traffic', { d: d0 }); set('d_traffic', { cx: e0.x, cy: e0.y, opacity: op(e0) }); set('t_traffic', { x: e0.x + 12, y: e0.y - 12 });
+
+    var ws = A.wheels.map(pr).sort(function (a, b) { return a.d - b.d; }).slice(0, 2).sort(function (a, b) { return a.x - b.x; });
+    var s1 = st(1);
+    for (var j = 0; j < 2; j++) { var dj = cv(s1, ws[j]); set('l_road' + j, { d: dj }); set('h_road' + j, { d: dj }); set('d_road' + j, { cx: ws[j].x, cy: ws[j].y, opacity: '1' }); }
+    set('t_road', { x: (ws[0].x + ws[1].x) / 2 - 50, y: Math.max(ws[0].y, ws[1].y) + 40 });
+
+    var s2 = st(2), e2 = pr(A.roof), d2 = cv(s2, e2);
+    set('l_siren', { d: d2 }); set('h_siren', { d: d2 }); set('d_siren', { cx: e2.x, cy: e2.y, opacity: op(e2) }); set('t_siren', { x: e2.x + 12, y: e2.y - 14 });
+
+    var b = this._box, xs = [b.min.x, b.max.x], ys = [b.min.y, b.max.y], zs = [b.min.z, b.max.z];
+    var minx = 1e9, maxx = -1e9, miny = 1e9, maxy = -1e9;
+    for (var a = 0; a < 2; a++) for (var bb = 0; bb < 2; bb++) for (var cc = 0; cc < 2; cc++) {
+      var q = pr(new T.Vector3(xs[a], ys[bb], zs[cc]));
+      if (q.x < minx) minx = q.x; if (q.x > maxx) maxx = q.x; if (q.y < miny) miny = q.y; if (q.y > maxy) maxy = q.y;
+    }
+    set('r_diag', { x: minx - 8, y: miny - 8, width: maxx - minx + 16, height: maxy - miny + 16 });
+    var s3 = st(3), e3 = { x: minx - 8, y: maxy - 8 - (maxy - miny) * 0.18 }, d3 = cv(s3, e3);
+    set('l_diag', { d: d3 }); set('h_diag', { d: d3 });
+    set('t_diag', { x: minx - 8, y: miny - 18 });
+  }
+  _go(v) { this.setState({ view: v, modal: null, tip: null }); if (typeof window !== 'undefined' && window.scrollTo) window.scrollTo(0, 0); }
+  _scatter(pid, ctx) {
+    var self = this, s = this.state || {};
+    var xmax = 1600000, ymin = 0.68, ymax = 0.92;
+    var X = function (v) { return v / xmax * 100; };
+    var Y = function (v) { return (1 - (v - ymin) / (ymax - ymin)) * 100; };
+    var ms = MODELS[pid].slice().sort(function (a, b) { return a[1] - b[1]; });
+    var best = -1, pareto = [], flags = {};
+    ms.forEach(function (m) { if (m[2] > best) { best = m[2]; flags[m[0]] = true; pareto.push(X(m[1]).toFixed(2) + ',' + Y(m[2]).toFixed(2)); } });
+    var tipKey = s.tip && s.tip.ctx === ctx && s.tip.pid === pid ? s.tip.name : null;
+    var tip = null;
+    var pts = ms.map(function (m) {
+      var left = X(m[1]), top = Y(m[2]);
+      if (tipKey === m[0]) tip = { left: left + '%', top: top + '%', tf: 'translate(' + (left > 70 ? 'calc(-100% - 14px)' : '14px') + ', ' + (top < 25 ? '8px' : 'calc(-100% - 8px)') + ')', name: m[0], acc: m[2].toFixed(3), params: fmtP(m[1]), arch: m[4], dims: m[3] };
+      return {
+        left: left + '%', top: top + '%', cls: 'pt' + (flags[m[0]] ? ' pt-best' : ''),
+        aria: m[0] + ': accuracy ' + m[2].toFixed(3) + ', ' + fmtP(m[1]) + ' параметров',
+        on: function () { self.setState({ tip: { ctx: ctx, pid: pid, name: m[0] } }); },
+        off: function () { self.setState({ tip: null }); },
+        click: function () { self.setState({ view: 'models', modelsProj: pid, openCard: pid + ':' + m[0], modal: null, tip: null }); }
+      };
+    });
+    var xt = [0, 400000, 800000, 1200000, 1600000].map(function (v) { return { left: X(v) + '%', label: v === 0 ? '0' : fmtP(v).replace('.00', '') }; });
+    var yt = [0.70, 0.75, 0.80, 0.85, 0.90].map(function (v) { return { top: Y(v) + '%', label: v.toFixed(2) }; });
+    return { pts: pts, xt: xt, yt: yt, pareto: pareto.join(' '), tip: tip };
+  }
+  _stats(p) {
+    return [
+      { k: 'Объём', v: p.ds.hours }, { k: 'Клипов', v: p.ds.clips }, { k: 'Классов', v: String(p.classes.length) },
+      { k: 'Частота', v: p.ds.sr }, { k: 'Каналы', v: p.ds.ch }, { k: 'Train / val / test', v: p.ds.split }
+    ];
+  }
+  renderVals() {
+    var self = this, s = this.state || {};
+    var view = s.view || 'home';
+    var refs = {}; REF_NAMES.forEach(function (n) { refs[n] = self._ref(n); });
+    var hover = s.hover || null, modal = s.modal || null;
+    var active = hover || modal;
+    var lc = {}; PROJECTS.forEach(function (p) { lc[p.id] = 'ln' + (active === p.id ? ' ln-on' : ''); });
+    var hits = {}, hov = { none: function () { self.setState({ hover: null }); } };
+    PROJECTS.forEach(function (p) {
+      hits[p.id] = function () { self.setState({ modal: p.id, tip: null }); };
+      hov[p.id] = function () { self.setState({ hover: p.id }); };
+    });
+    var bestOf = function (id) { var b = 0; MODELS[id].forEach(function (m) { if (m[2] > b) b = m[2]; }); return b; };
+
+    var blocks = PROJECTS.map(function (p, i) {
+      return {
+        code: p.code, name: p.name, sub: p.sub, ref: self._ref('blk' + i),
+        meta: MODELS[p.id].length + ' моделей · лучшая acc ' + bestOf(p.id).toFixed(3),
+        cls: 'blk' + (active === p.id ? ' blk-on' : ''),
+        onClick: function () { self.setState({ modal: p.id, tip: null }); },
+        onEnter: function () { self.setState({ hover: p.id }); },
+        onLeave: function () { self.setState({ hover: null }); }
+      };
+    });
+
+    var tabs = [['tools', 'Инструменты'], ['inference', 'Инференс'], ['info', 'Информация'], ['models', 'Модели']].map(function (t) {
+      var off = t[0] === 'inference';
+      return { label: t[1], disabled: off, badge: off, title: off ? 'Раздел в разработке' : '', cls: 'tab' + (view === t[0] ? ' tab-on' : '') + (off ? ' tab-off' : ''), onClick: function () { if (!off) self._go(t[0]); } };
+    });
+
+    var infoProj = s.infoProj || 'traffic';
+    var ip = proj(infoProj);
+    var ims = MODELS[infoProj];
+    var minP = ims.reduce(function (a, m) { return Math.min(a, m[1]); }, 1e9);
+    var info = { name: ip.name, sc: this._scatter(infoProj, 'info'), st: { count: ims.length, best: bestOf(infoProj).toFixed(3), min: fmtP(minP) } };
+    var infoPills = PROJECTS.map(function (p) { return { name: p.short, cls: 'pill' + (p.id === infoProj ? ' pill-on' : ''), onClick: function () { self.setState({ infoProj: p.id, tip: null }); } }; });
+    var dsCards = PROJECTS.map(function (p) { return { code: p.code, name: p.name, desc: p.desc, ds: p.ds, classes: p.classes, stats: self._stats(p), border: p.id === infoProj ? '#4A5360' : '#252B33' }; });
+
+    var modelsProj = s.modelsProj || 'traffic';
+    var mp = proj(modelsProj);
+    var modelPills = PROJECTS.map(function (p) { return { name: p.short, cls: 'pill' + (p.id === modelsProj ? ' pill-on' : ''), onClick: function () { self.setState({ modelsProj: p.id, openCard: null }); } }; });
+    var cards = MODELS[modelsProj].slice().sort(function (a, b) { return b[2] - a[2]; }).map(function (m) {
+      var key = modelsProj + ':' + m[0], open = s.openCard === key;
+      var dims = m[3].split(' × ');
+      return {
+        name: m[0], arch: m[4], acc: m[2].toFixed(3), params: fmtP(m[1]), ds: mp.ds.name, dsSlug: mp.ds.slug,
+        id: modelsProj + '-' + slug(m[0]), nb: 'notebooks/' + modelsProj + '/' + slug(m[0]) + '.ipynb',
+        inShape: '[1, 1, ' + dims[0] + ', ' + dims[1] + ']', outShape: '[1, ' + mp.out + ']',
+        open: open, rot: open ? 'rotate(180deg)' : 'none', border: open ? '#FFB547' : '#252B33',
+        toggle: function () { self.setState({ openCard: open ? null : key }); }
+      };
+    });
+
+    var m = null;
+    if (modal) {
+      var p = proj(modal);
+      m = {
+        code: p.code, name: p.name, desc: p.desc, ds: p.ds, classes: p.classes, stats: this._stats(p),
+        count: MODELS[p.id].length, sc: this._scatter(p.id, 'modal'),
+        rows: MODELS[p.id].slice().sort(function (a, b) { return b[2] - a[2]; }).map(function (r) { return { name: r[0], arch: r[4], acc: r[2].toFixed(3), params: fmtP(r[1]), dims: r[3], out: '1 × ' + p.out }; }),
+        toInfo: function () { self.setState({ view: 'info', infoProj: p.id, modal: null, tip: null }); },
+        toModels: function () { self.setState({ view: 'models', modelsProj: p.id, modal: null, tip: null, openCard: null }); }
+      };
+    }
+
+    return {
+      refs: refs, lc: lc, hits: hits, hov: hov, blocks: blocks, tabs: tabs,
+      homeDisplay: view === 'home' ? 'block' : 'none',
+      isTools: view === 'tools', isInfo: view === 'info', isModels: view === 'models',
+      loading: !s.loaded, loadText: s.err ? s.err : 'Загрузка 3D-модели…',
+      info: info, infoPills: infoPills, dsCards: dsCards,
+      modelPills: modelPills, cards: cards,
+      m: m,
+      goHome: function () { self._go('home'); },
+      closeModal: function () { self.setState({ modal: null, tip: null }); },
+      closeBackdrop: function (e) { if (e && e.target === e.currentTarget) self.setState({ modal: null, tip: null }); }
+    };
+  }
+}
+</script>
+</body>
+</html>
