@@ -26,7 +26,7 @@ export function HomePage() {
 
   return (
     <>
-      <Hero onOpenProject={openProject} />
+      <Hero openProjectId={project?.id ?? null} onOpenProject={openProject} />
       {project ? <ProjectModal project={project} onClose={closeProject} /> : null}
     </>
   );

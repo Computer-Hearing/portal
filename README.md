@@ -1,7 +1,7 @@
 # Компьютерный слух — портал
 
 SPA-портал для проекта акустического восприятия беспилотных автомобилей.
-Собран по референс-макету `Main.dc.html`: тёмная тема, акцент `#FFB547`,
+Тёмная тема, акцент `#FFB547`,
 шрифты Golos Text / JetBrains Mono, 3D-модель Volkswagen Golf VII.
 
 ## Стек
@@ -47,7 +47,7 @@ src/
   shared/              # UI-примитивы, хуки, утилиты, токены
   test/                # настройка vitest
 public/
-  models/golf7.glb     # 3D-модель (декодирована из assets/*.txt)
+  models/golf7.glb     # 3D-модель Volkswagen Golf VII
   favicon.svg
 ```
 
@@ -78,11 +78,7 @@ VITE_API_HOST=https://api.example.com npm run dev
 
 Если переменная не задана, в примерах API показывается `[API_HOST]`.
 
-## Референс
+## 3D-модель
 
-Файлы `Main.dc.html`, `assets/`, `support.js`, `vendor/` — исходный
-дизайн-макет, а не production-код. Он оставлен в корне как источник
-точных значений; React-реализация живёт в `src/`. Модель
-`public/models/golf7.glb` получена декодированием
-`assets/8b192771322ce3a132a10f98a6aff693.txt`. При необходимости её можно
-дополнительно сжать через `gltf-transform` (сейчас ~10 МБ).
+`public/models/golf7.glb` весит ~10 МБ. При необходимости её можно
+дополнительно сжать через `gltf-transform`.

@@ -25,7 +25,7 @@ export function ModelCard({ model, project, open, onToggle }: ModelCardProps) {
   const detailsId = `${id}-details`;
 
   return (
-    <article className={cn(styles.card, open && styles.cardOpen)}>
+    <article id={`model-${id}`} className={cn(styles.card, open && styles.cardOpen)}>
       <button
         type="button"
         className={styles.head}

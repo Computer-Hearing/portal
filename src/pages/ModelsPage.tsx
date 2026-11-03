@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import type { Model } from '@/entities/model/types';
 import type { ProjectId } from '@/entities/project/types';
@@ -23,6 +24,18 @@ export function ModelsPage() {
 
   const rawModel = searchParams.get('model');
   const openModel = models.find((model) => getModelId(projectId, model) === rawModel) ?? null;
+
+  // Deep link (?model=...) from the scatter or the project modal: bring the
+  // opened card into view. Runs once on mount, after ScrollToTop in AppShell.
+  useEffect(() => {
+    if (!rawModel) return;
+    const frame = requestAnimationFrame(() => {
+      document
+        .getElementById(`model-${rawModel}`)
+        ?.scrollIntoView({ block: 'center', behavior: 'instant' });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, []);
 
   const selectProject = (id: ProjectId) => {
     const next = new URLSearchParams(searchParams);

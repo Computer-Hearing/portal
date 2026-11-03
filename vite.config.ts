@@ -9,6 +9,10 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
+  build: {
+    // three.js lives in the lazily loaded CarViewer chunk (~650 kB)
+    chunkSizeWarningLimit: 800,
+  },
   test: {
     environment: 'jsdom',
     css: true,

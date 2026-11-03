@@ -9,15 +9,17 @@ const CarViewer = lazy(() =>
 );
 
 interface HeroProps {
+  openProjectId?: ProjectId | null;
   onOpenProject: (projectId: ProjectId) => void;
 }
 
-export function Hero({ onOpenProject }: HeroProps) {
+export function Hero({ openProjectId = null, onOpenProject }: HeroProps) {
   const heroRef = useRef<HTMLDivElement>(null);
   const hostRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const blockRefs = useRef<Array<HTMLElement | null>>([]);
   const [hovered, setHovered] = useState<ProjectId | null>(null);
+  const active = hovered ?? openProjectId;
 
   return (
     <section>
@@ -41,7 +43,7 @@ export function Hero({ onOpenProject }: HeroProps) {
                   blockRefs.current[index] = element;
                 }}
                 project={project}
-                active={hovered === project.id}
+                active={active === project.id}
                 onHover={setHovered}
                 onOpen={onOpenProject}
               />
@@ -58,7 +60,7 @@ export function Hero({ onOpenProject }: HeroProps) {
             hostRef={hostRef}
             canvasRef={canvasRef}
             blockRefs={blockRefs}
-            hovered={hovered}
+            hovered={active}
             onHover={setHovered}
             onOpen={onOpenProject}
           />

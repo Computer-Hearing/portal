@@ -175,6 +175,9 @@ export function useCarScene({
       roof: THREE.Vector3;
     } | null = null;
 
+    const BASE_DISTANCE = camera.position.distanceTo(controls.target);
+    let lastFit = 1;
+
     const resize = () => {
       const width = host.clientWidth;
       const height = host.clientHeight;
@@ -182,6 +185,18 @@ export function useCarScene({
       renderer.setSize(width, height, false);
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
+
+      // The reference framing is tuned for a wide viewer; on portrait/mobile
+      // layouts pull the camera back so the car is not cropped.
+      const fit = Math.max(1, 0.95 / camera.aspect);
+      controls.minDistance = 5.5 * fit;
+      controls.maxDistance = Math.max(12, BASE_DISTANCE * fit);
+      if (fit > 1 || lastFit > 1) {
+        const offset = camera.position.clone().sub(controls.target);
+        camera.position.copy(controls.target).add(offset.setLength(BASE_DISTANCE * fit));
+        controls.update();
+      }
+      lastFit = fit;
     };
 
     resize();
