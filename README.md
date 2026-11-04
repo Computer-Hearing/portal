@@ -15,7 +15,7 @@ SPA-портал для проекта акустического восприя
 
 ```bash
 npm install
-npm run dev      # http://localhost:5173
+npm run dev      # http://localhost:4173
 npm run build    # tsc + vite build
 npm run preview  # предпросмотр production-сборки
 npm test         # vitest
