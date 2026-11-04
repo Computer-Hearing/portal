@@ -4,6 +4,12 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 
+const ACCENT = 0xff8a3d;
+const RING_COLOR = 0xff8a3d;
+const SIDE_WARM = 0xffb27a;
+// Milky paint: near-white parts of the model (body, rims) are tinted to this.
+const CAR_TINT = new THREE.Color(0xf3e9d8);
+
 export interface ScreenPoint {
   x: number;
   y: number;
@@ -95,6 +101,7 @@ export function useCarScene({
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1;
+
     renderer.setClearColor(0x000000, 0);
 
     const scene = new THREE.Scene();
@@ -103,10 +110,21 @@ export function useCarScene({
     scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
     pmrem.dispose();
 
-    scene.add(new THREE.HemisphereLight(0xdfe8ff, 0x15181c, 0.5));
+    // Neutral key light keeps the car white; coloured lights only tint the edges.
+    scene.add(new THREE.HemisphereLight(0xfff6ea, 0x0c0b0a, 0.5));
     const directional = new THREE.DirectionalLight(0xffffff, 1.1);
     directional.position.set(4, 8, 5);
     scene.add(directional);
+
+    // Orange rim light behind the car (the car faces +Z).
+    const rimLight = new THREE.DirectionalLight(ACCENT, 2);
+    rimLight.position.set(0, 2.5, -6);
+    scene.add(rimLight);
+
+    // Soft warm side light.
+    const sideLight = new THREE.PointLight(SIDE_WARM, 8, 0, 2);
+    sideLight.position.set(4, 1.6, 0);
+    scene.add(sideLight);
 
     const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 100);
     camera.position.set(6.4, 2.7, 6.0);
@@ -122,7 +140,7 @@ export function useCarScene({
     controls.minPolarAngle = Math.PI * 0.18;
     controls.update();
 
-    const grid = new THREE.PolarGridHelper(5.5, 16, 6, 96, 0x232a32, 0x1a2027);
+    const grid = new THREE.PolarGridHelper(5.5, 16, 6, 96, 0x2a2622, 0x1b1916);
     grid.position.y = 0.001;
     scene.add(grid);
 
@@ -155,7 +173,7 @@ export function useCarScene({
       const ring = new THREE.Mesh(
         new THREE.RingGeometry(0.985, 1, 128),
         new THREE.MeshBasicMaterial({
-          color: 0xffb547,
+          color: RING_COLOR,
           transparent: true,
           depthWrite: false,
           side: THREE.DoubleSide,
@@ -217,6 +235,19 @@ export function useCarScene({
       modelUrl,
       (gltf) => {
         if (cancelled) return;
+
+        // Tint only the light, unsaturated materials (paint, rims) so tyres,
+        // glass and trim keep their original look.
+        const hsl = { h: 0, s: 0, l: 0 };
+        gltf.scene.traverse((object) => {
+          if (!(object instanceof THREE.Mesh)) return;
+          const materials = Array.isArray(object.material) ? object.material : [object.material];
+          for (const material of materials) {
+            if (!('color' in material) || !(material.color instanceof THREE.Color)) continue;
+            material.color.getHSL(hsl);
+            if (hsl.l > 0.6 && hsl.s < 0.2) material.color.multiply(CAR_TINT);
+          }
+        });
 
         modelBox = new THREE.Box3().setFromObject(gltf.scene);
         const center = modelBox.getCenter(new THREE.Vector3());

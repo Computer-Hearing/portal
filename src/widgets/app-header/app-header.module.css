@@ -2,7 +2,9 @@
   position: sticky;
   top: 0;
   z-index: 20;
-  background: var(--bg);
+  background: rgba(12, 11, 10, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--border-faint);
 }
 

@@ -81,8 +81,9 @@
 
 .line {
   fill: none;
-  stroke: var(--accent);
-  stroke-opacity: 0.5;
+  stroke: var(--accent-line);
+  filter: var(--glow-line);
+  stroke-opacity: 0.7;
   stroke-width: 1.5;
   stroke-dasharray: 6 6;
   animation: dashmove 1.4s linear infinite;
@@ -102,7 +103,8 @@
 }
 
 .dot {
-  fill: var(--accent);
+  fill: var(--accent-line);
+  filter: var(--glow-line);
   stroke: var(--bg);
   stroke-width: 2;
 }
@@ -110,6 +112,11 @@
 .labelText {
   fill: var(--text);
   font: 500 12px var(--font-mono);
+  /* dark halo keeps labels readable over the white car */
+  stroke: var(--bg);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+  paint-order: stroke;
 }
 
 @keyframes dashmove {

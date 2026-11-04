@@ -16,6 +16,7 @@
 
 .cardOpen {
   border-color: var(--accent);
+  box-shadow: var(--glow);
 }
 
 .head {
@@ -92,7 +93,7 @@
 }
 
 .metricAccent {
-  color: var(--accent);
+  color: var(--accent-link);
 }
 
 .metricDataset {
@@ -128,7 +129,7 @@
 
 .rowLink {
   font: 400 13px/1.4 var(--font-mono);
-  color: var(--accent);
+  color: var(--accent-link);
   text-decoration: none;
   border-bottom: 1px dashed var(--accent-soft);
   text-align: right;

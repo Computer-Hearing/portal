@@ -14,7 +14,11 @@ body,
 
 body {
   margin: 0;
-  background: var(--bg);
+  background:
+    radial-gradient(ellipse 80% 480px at 50% -140px, rgba(255, 138, 61, 0.1), transparent 70%),
+    var(--bg);
+  background-repeat: no-repeat;
+  background-color: var(--bg);
   color: var(--text);
   font-family: var(--font-sans);
   font-size: 15px;
@@ -24,7 +28,7 @@ body {
 }
 
 a {
-  color: var(--accent);
+  color: var(--accent-link);
 }
 
 a:hover {
@@ -44,7 +48,7 @@ select {
 }
 
 ::selection {
-  background: rgba(255, 181, 71, 0.3);
+  background: rgba(255, 138, 61, 0.3);
 }
 
 @media (prefers-reduced-motion: reduce) {

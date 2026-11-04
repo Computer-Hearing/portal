@@ -20,6 +20,7 @@
 
 .card:hover {
   border-color: var(--accent);
+  box-shadow: var(--glow);
   color: var(--text);
 }
 
@@ -29,7 +30,7 @@
 }
 
 .icon {
-  color: var(--accent);
+  color: var(--accent-link);
   display: flex;
 }
 
@@ -47,5 +48,5 @@
 }
 
 .open {
-  color: var(--accent);
+  color: var(--accent-link);
 }

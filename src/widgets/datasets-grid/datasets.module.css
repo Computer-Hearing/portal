@@ -15,7 +15,8 @@
 }
 
 .active {
-  border-color: var(--border-hover);
+  border-color: var(--accent);
+  box-shadow: var(--glow);
 }
 
 .head {
@@ -26,7 +27,7 @@
 
 .code {
   font: 500 12px/1 var(--font-mono);
-  color: var(--accent);
+  color: var(--accent-link);
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-code);
   padding: 6px 8px;

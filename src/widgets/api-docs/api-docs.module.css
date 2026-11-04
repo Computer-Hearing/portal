@@ -18,7 +18,7 @@
 .eyebrow {
   font: 500 12px/1 var(--font-mono);
   letter-spacing: 0.1em;
-  color: var(--accent);
+  color: var(--accent-link);
 }
 
 .title {

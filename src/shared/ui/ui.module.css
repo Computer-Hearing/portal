@@ -26,6 +26,7 @@
 }
 
 .btnAccent:hover {
+  box-shadow: var(--glow);
   background: var(--accent-hover);
   border-color: var(--accent-hover);
   color: var(--accent-ink);
@@ -72,8 +73,9 @@
 
 .tabOn,
 .tabOn:hover {
-  color: var(--bg);
+  color: var(--accent-ink);
   background: var(--accent);
+  box-shadow: var(--glow);
 }
 
 .tabOn:hover {
@@ -106,9 +108,10 @@
 
 .pillOn,
 .pillOn:hover {
-  background: var(--text);
-  color: var(--bg);
-  border-color: var(--text);
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-color: var(--accent);
+  box-shadow: var(--glow);
 }
 
 .chip {
@@ -230,7 +233,8 @@
   position: fixed;
   inset: 0;
   z-index: 50;
-  background: rgba(5, 7, 9, 0.78);
+  background: rgba(6, 5, 4, 0.8);
+  backdrop-filter: blur(4px);
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -239,6 +243,7 @@
 }
 
 .dialog {
+  box-shadow: var(--glow);
   width: 100%;
   max-width: 1080px;
   background: var(--surface-2);
@@ -253,7 +258,7 @@
 }
 
 .link {
-  color: var(--accent);
+  color: var(--accent-link);
   text-decoration: none;
   border-bottom: 1px dashed var(--accent-soft);
 }

@@ -28,7 +28,7 @@
 .kicker {
   font: 500 12px/1 var(--font-mono);
   letter-spacing: 0.12em;
-  color: var(--accent);
+  color: var(--accent-link);
 }
 
 .title {
@@ -100,6 +100,7 @@
 .projectOn {
   border-color: var(--accent);
   background: var(--surface-hover);
+  box-shadow: var(--glow);
 }
 
 .code {
@@ -113,7 +114,7 @@
   align-items: center;
   justify-content: center;
   font: 500 12px/1 var(--font-mono);
-  color: var(--accent);
+  color: var(--accent-link);
 }
 
 .projectBody {

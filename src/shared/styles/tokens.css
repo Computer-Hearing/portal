@@ -1,32 +1,38 @@
 :root {
-  --bg: #0b0d10;
-  --surface-1: #0f1317;
-  --surface-2: #12161b;
-  --surface-3: #181d23;
-  --surface-hover: #171c22;
-  --surface-tab-hover: #161b21;
+  /* Warm graphite + orange, tuned around a milky car. Surfaces stay
+     near-neutral; colour lives only in the accent. */
+  --bg: #0c0b0a;
+  --surface-1: #100f0d;
+  --surface-2: #151311;
+  --surface-3: #1c1a17;
+  --surface-hover: #1a1815;
+  --surface-tab-hover: #181613;
 
-  --border-faint: #1c2128;
-  --border-soft: #1f252c;
-  --border-grid: #20262d;
-  --border: #252b33;
-  --border-strong: #2a313a;
-  --border-hover: #4a5360;
+  --border-faint: #1b1916;
+  --border-soft: #201d1a;
+  --border-grid: #23201c;
+  --border: #2a2622;
+  --border-strong: #35302a;
+  --border-hover: #554d44;
 
-  --text: #e9edf1;
-  --text-2: #c9d1d9;
-  --text-3: #b7c0ca;
-  --text-muted: #9ba5b1;
-  --text-disabled: #8c96a2;
-  --text-faint: #3b434d;
+  --text: #eeeae4;
+  --text-2: #d2ccc3;
+  --text-3: #bbb4a9;
+  --text-muted: #a1998d;
+  --text-disabled: #8f877c;
+  --text-faint: #463f37;
 
-  --accent: #ffb547;
-  --accent-hover: #ffc266;
-  --accent-link: #ffd08a;
-  --accent-ink: #1a1204;
-  --accent-soft: rgba(255, 181, 71, 0.5);
-  --accent-ring: rgba(255, 181, 71, 0.18);
-  --accent-ring-hover: rgba(255, 181, 71, 0.3);
+  --accent: #ff8a3d;
+  --accent-hover: #ffa366;
+  --accent-link: #ffa366;
+  --accent-ink: #1a0e04;
+  --accent-line: #ff8a3d;
+  --accent-soft: rgba(255, 138, 61, 0.5);
+  --accent-ring: rgba(255, 138, 61, 0.2);
+  --accent-ring-hover: rgba(255, 138, 61, 0.35);
+
+  --glow: 0 0 30px rgba(255, 138, 61, 0.25);
+  --glow-line: drop-shadow(0 0 4px rgba(255, 138, 61, 0.75));
 
   --font-sans: 'Golos Text', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
