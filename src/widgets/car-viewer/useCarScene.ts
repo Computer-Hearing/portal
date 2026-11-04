@@ -4,9 +4,9 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 
-const ACCENT = 0xff8a3d;
-const RING_COLOR = 0xff8a3d;
-const SIDE_WARM = 0xffb27a;
+const ACCENT = 0x64cbbf;
+const RING_COLOR = 0x64cbbf;
+const SIDE_LIGHT = 0xb5dfd8;
 // Milky paint: near-white parts of the model (body, rims) are tinted to this.
 const CAR_TINT = new THREE.Color(0xf3e9d8);
 
@@ -116,13 +116,13 @@ export function useCarScene({
     directional.position.set(4, 8, 5);
     scene.add(directional);
 
-    // Orange rim light behind the car (the car faces +Z).
+    // Teal rim light behind the car (the car faces +Z).
     const rimLight = new THREE.DirectionalLight(ACCENT, 2);
     rimLight.position.set(0, 2.5, -6);
     scene.add(rimLight);
 
-    // Soft warm side light.
-    const sideLight = new THREE.PointLight(SIDE_WARM, 8, 0, 2);
+    // Soft, nearly neutral side light keeps the paint readable.
+    const sideLight = new THREE.PointLight(SIDE_LIGHT, 8, 0, 2);
     sideLight.position.set(4, 1.6, 0);
     scene.add(sideLight);
 

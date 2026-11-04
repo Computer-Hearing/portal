@@ -14,11 +14,7 @@ body,
 
 body {
   margin: 0;
-  background:
-    radial-gradient(ellipse 80% 480px at 50% -140px, rgba(255, 138, 61, 0.1), transparent 70%),
-    var(--bg);
-  background-repeat: no-repeat;
-  background-color: var(--bg);
+  background: var(--bg);
   color: var(--text);
   font-family: var(--font-sans);
   font-size: 15px;
@@ -48,7 +44,7 @@ select {
 }
 
 ::selection {
-  background: rgba(255, 138, 61, 0.3);
+  background: rgba(100, 203, 191, 0.3);
 }
 
 @media (prefers-reduced-motion: reduce) {

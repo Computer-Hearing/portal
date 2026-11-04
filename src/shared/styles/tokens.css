@@ -1,7 +1,6 @@
 :root {
-  /* Warm graphite + orange, tuned around a milky car. Surfaces stay
-     near-neutral; colour lives only in the accent. */
-  --bg: #0c0b0a;
+  /* Warm graphite surfaces with cool teal navigation accents. */
+  --bg: #000;
   --surface-1: #100f0d;
   --surface-2: #151311;
   --surface-3: #1c1a17;
@@ -22,17 +21,22 @@
   --text-disabled: #8f877c;
   --text-faint: #463f37;
 
-  --accent: #ff8a3d;
-  --accent-hover: #ffa366;
-  --accent-link: #ffa366;
-  --accent-ink: #1a0e04;
-  --accent-line: #ff8a3d;
-  --accent-soft: rgba(255, 138, 61, 0.5);
-  --accent-ring: rgba(255, 138, 61, 0.2);
-  --accent-ring-hover: rgba(255, 138, 61, 0.35);
+  --project-traffic: #73c7ec;
+  --project-road: #b2cf78;
+  --project-siren: #f58d83;
+  --project-diag: #e9bb70;
 
-  --glow: 0 0 30px rgba(255, 138, 61, 0.25);
-  --glow-line: drop-shadow(0 0 4px rgba(255, 138, 61, 0.75));
+  --accent: #64cbbf;
+  --accent-hover: #8edfd5;
+  --accent-link: #8edfd5;
+  --accent-ink: #071c19;
+  --accent-line: #64cbbf;
+  --accent-soft: rgba(100, 203, 191, 0.5);
+  --accent-ring: rgba(100, 203, 191, 0.2);
+  --accent-ring-hover: rgba(100, 203, 191, 0.35);
+
+  --glow: 0 0 30px rgba(100, 203, 191, 0.25);
+  --glow-line: drop-shadow(0 0 4px rgba(100, 203, 191, 0.75));
 
   --font-sans: 'Golos Text', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
@@ -51,3 +55,8 @@
   --radius-modal: 18px;
   --radius-pill: 999px;
 }
+
+[data-project='traffic'] { --project-color: var(--project-traffic); }
+[data-project='road'] { --project-color: var(--project-road); }
+[data-project='siren'] { --project-color: var(--project-siren); }
+[data-project='diag'] { --project-color: var(--project-diag); }

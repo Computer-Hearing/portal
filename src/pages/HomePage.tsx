@@ -3,6 +3,7 @@ import type { ProjectId } from '@/entities/project/types';
 import { getProject, isProjectId } from '@/entities/project/selectors';
 import { useDocumentTitle } from '@/shared/hooks/useDocumentTitle';
 import { Hero } from '@/widgets/hero/Hero';
+import { Teams } from '@/widgets/teams/Teams';
 import { ProjectModal } from '@/widgets/project-modal/ProjectModal';
 
 export function HomePage() {
@@ -27,6 +28,7 @@ export function HomePage() {
   return (
     <>
       <Hero openProjectId={project?.id ?? null} onOpenProject={openProject} />
+      <Teams />
       {project ? <ProjectModal project={project} onClose={closeProject} /> : null}
     </>
   );

@@ -1,132 +1,42 @@
 .viewerHost {
-  flex: 999 1 560px;
+  flex: 1;
   min-width: 0;
-  min-height: 640px;
+  min-height: 0;
   position: relative;
-  border: 1px solid var(--border-soft);
-  border-radius: var(--radius-section);
-  background: var(--surface-1);
   overflow: hidden;
+  background: #000;
 }
 
-.canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-  cursor: grab;
-  touch-action: none;
-}
+.canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: grab; touch-action: none; }
+.canvas:active { cursor: grabbing; }
+.viewerBadge { position: absolute; left: 24px; top: 24px; display: flex; flex-direction: column; gap: 7px; pointer-events: none; }
+.viewerKicker { font: 500 9px/1 var(--font-mono); letter-spacing: 0.12em; color: var(--text-muted); }
+.viewerTitle { font-size: 14px; font-weight: 500; }
+.rotateHint { position: absolute; right: 20px; bottom: 18px; display: flex; align-items: center; gap: 8px; color: var(--text-muted); font-size: 10px; pointer-events: none; }
+.loader { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; color: var(--text-3); pointer-events: none; font-size: 14px; }
+.overlay { position: absolute; inset: 0; pointer-events: none; }
+.overlay[hidden] { display: none; }
+.leaders { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.leader { fill: none; stroke: var(--project-color); stroke-width: 1; stroke-opacity: 0.65; vector-effect: non-scaling-stroke; transition: stroke-opacity 180ms, stroke-width 180ms; }
+.leaderOn { stroke-opacity: 1; stroke-width: 1.8; }
+.marker { position: absolute; appearance: none; display: flex; align-items: center; gap: 8px; min-height: 44px; border: 0; padding: 10px 5px 5px; background: linear-gradient(transparent, #100f0dcc); color: var(--project-color); pointer-events: auto; cursor: pointer; text-align: left; transition: background 180ms; }
+.markerCode { font: 8px/1.3 var(--font-mono); opacity: 0.6; }
+.markerLabel { font: 10px/1.3 var(--font-mono); white-space: nowrap; }
+.marker:hover, .markerOn { background: #100f0de8; }
+.markerOn .markerCode { opacity: 1; }
+.marker[data-project='traffic'] { left: 22px; top: 33%; }
+.marker[data-project='road'] { left: 22px; top: 75%; }
+.marker[data-project='siren'] { right: 22px; top: 21%; }
+.marker[data-project='diag'] { right: 22px; top: 70%; }
+.marker:focus-visible { outline-color: var(--project-color); outline-offset: 4px; }
 
-.canvas:active {
-  cursor: grabbing;
-}
-
-.viewerBadge {
-  position: absolute;
-  left: 20px;
-  top: 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  pointer-events: none;
-}
-
-.viewerKicker {
-  font: 500 12px/1 var(--font-mono);
-  letter-spacing: 0.1em;
-  color: var(--text-muted);
-}
-
-.viewerTitle {
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.rotateHint {
-  position: absolute;
-  right: 20px;
-  bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--text-muted);
-  font-size: 13px;
-  pointer-events: none;
-}
-
-.loader {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  color: var(--text-3);
-  pointer-events: none;
-  font-size: 14px;
-}
-
-.overlay {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 3;
-  overflow: visible;
-}
-
-.line {
-  fill: none;
-  stroke: var(--accent-line);
-  filter: var(--glow-line);
-  stroke-opacity: 0.7;
-  stroke-width: 1.5;
-  stroke-dasharray: 6 6;
-  animation: dashmove 1.4s linear infinite;
-}
-
-.lineOn {
-  stroke-opacity: 1;
-  stroke-width: 2.25;
-}
-
-.hit {
-  fill: none;
-  stroke: transparent;
-  stroke-width: 18;
-  pointer-events: stroke;
-  cursor: pointer;
-}
-
-.dot {
-  fill: var(--accent-line);
-  filter: var(--glow-line);
-  stroke: var(--bg);
-  stroke-width: 2;
-}
-
-.labelText {
-  fill: var(--text);
-  font: 500 12px var(--font-mono);
-  /* dark halo keeps labels readable over the white car */
-  stroke: var(--bg);
-  stroke-width: 4px;
-  stroke-linejoin: round;
-  paint-order: stroke;
-}
-
-@keyframes dashmove {
-  to {
-    stroke-dashoffset: -24;
-  }
-}
-
-@media (max-width: 900px) {
-  .viewerHost {
-    min-height: clamp(360px, 55vh, 640px);
-  }
+@media (max-width: 440px) {
+  .viewerBadge { left: 14px; top: 14px; }
+  .viewerKicker { font-size: 7px; }
+  .viewerTitle { font-size: 11px; }
+  .markerLabel { font-size: 9px; }
+  .marker { gap: 5px; }
+  .marker[data-project='traffic'], .marker[data-project='road'] { left: 12px; }
+  .marker[data-project='siren'], .marker[data-project='diag'] { right: 12px; }
+  .rotateHint { font-size: 9px; }
 }

@@ -1,4 +1,4 @@
-import type { RefObject } from 'react';
+import { useRef } from 'react';
 import type { ProjectId } from '@/entities/project/types';
 import { Spinner } from '@/shared/ui/Spinner';
 import { RotateIcon } from '@/shared/ui/icons';
@@ -8,24 +8,18 @@ import { useCarScene } from './useCarScene';
 import styles from './car-viewer.module.css';
 
 interface CarViewerProps {
-  heroRef: RefObject<HTMLDivElement | null>;
-  hostRef: RefObject<HTMLDivElement | null>;
-  canvasRef: RefObject<HTMLCanvasElement | null>;
-  blockRefs: RefObject<Array<HTMLElement | null>>;
   hovered: ProjectId | null;
   onHover: (projectId: ProjectId | null) => void;
   onOpen: (projectId: ProjectId) => void;
 }
 
 export function CarViewer({
-  heroRef,
-  hostRef,
-  canvasRef,
-  blockRefs,
   hovered,
   onHover,
   onOpen,
 }: CarViewerProps) {
+  const hostRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const reducedMotion = usePrefersReducedMotion();
   const { frameRef, loading, error } = useCarScene({
     hostRef,
@@ -36,7 +30,6 @@ export function CarViewer({
   });
 
   return (
-    <>
       <div ref={hostRef} className={styles.viewerHost}>
         <canvas
           ref={canvasRef}
@@ -66,17 +59,13 @@ export function CarViewer({
             <span>{error}</span>
           </div>
         ) : null}
+        <CarOverlay
+          frameRef={frameRef}
+          hostRef={hostRef}
+          hovered={hovered}
+          onHover={onHover}
+          onOpen={onOpen}
+        />
       </div>
-
-      <CarOverlay
-        frameRef={frameRef}
-        heroRef={heroRef}
-        hostRef={hostRef}
-        blockRefs={blockRefs}
-        hovered={hovered}
-        onHover={onHover}
-        onOpen={onOpen}
-      />
-    </>
   );
 }
