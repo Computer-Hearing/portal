@@ -1,16 +1,7 @@
 import type { Stat } from '@/entities/dataset/types';
-import type { Project, ProjectId } from './types';
-import { PROJECTS } from './data';
+import type { Project } from './types';
 
-export const PROJECT_IDS: ProjectId[] = PROJECTS.map((project) => project.id);
-
-export function isProjectId(value: string | null | undefined): value is ProjectId {
-  return PROJECT_IDS.includes(value as ProjectId);
-}
-
-export function getProject(id: string | null | undefined): Project {
-  return PROJECTS.find((project) => project.id === id) ?? PROJECTS[0];
-}
+export { getProject, getProjects, isProjectId } from '@/shared/data/portal';
 
 export function getProjectStats(project: Project): Stat[] {
   return [

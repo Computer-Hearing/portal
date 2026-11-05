@@ -1,5 +1,5 @@
 import { useEffect, useRef, type RefObject } from 'react';
-import { PROJECTS } from '@/entities/project/data';
+import { getProjects } from '@/entities/project/selectors';
 import type { ProjectId } from '@/entities/project/types';
 import type { OverlayFrame } from './useCarScene';
 import { cn } from '@/shared/lib/cn';
@@ -14,6 +14,7 @@ interface CarOverlayProps {
 }
 
 export function CarOverlay({ frameRef, hostRef, hovered, onHover, onOpen }: CarOverlayProps) {
+  const projects = getProjects();
   const overlayRef = useRef<HTMLDivElement>(null);
   const markerRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const lineRefs = useRef<Array<SVGPathElement | null>>([]);
@@ -60,13 +61,13 @@ export function CarOverlay({ frameRef, hostRef, hovered, onHover, onOpen }: CarO
   return (
     <div ref={overlayRef} className={styles.overlay} hidden>
       <svg className={styles.leaders} aria-hidden="true">
-        {PROJECTS.map((project, index) => (
+        {projects.map((project, index) => (
           <path key={project.id} ref={(element) => { lineRefs.current[index] = element; }}
             data-project={project.id}
             className={cn(styles.leader, hovered === project.id && styles.leaderOn)} />
         ))}
       </svg>
-      {PROJECTS.map((project, index) => (
+      {projects.map((project, index) => (
         <button key={project.id} ref={(element) => { markerRefs.current[index] = element; }}
           type="button" data-project={project.id}
           className={cn(styles.marker, hovered === project.id && styles.markerOn)}

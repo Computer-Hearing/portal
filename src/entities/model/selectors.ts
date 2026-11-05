@@ -1,14 +1,12 @@
 import { formatParams, slugify } from '@/shared/lib/format';
 import type { ProjectId } from '@/entities/project/types';
+import { getModels } from '@/shared/data/portal';
 import type { Model, ModelStats } from './types';
-import { MODELS } from './data';
 
-export function getModels(projectId: ProjectId): Model[] {
-  return MODELS[projectId];
-}
+export { getModels };
 
 export function getModelId(projectId: ProjectId, model: Model): string {
-  return `${projectId}-${slugify(model.name)}`;
+  return model.id || `${projectId}-${slugify(model.name)}`;
 }
 
 export function getBestAccuracy(models: Model[]): number {

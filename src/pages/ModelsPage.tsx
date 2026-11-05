@@ -3,8 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import type { Model } from '@/entities/model/types';
 import type { ProjectId } from '@/entities/project/types';
 import { getModelId, getModels, getModelsByAccuracy } from '@/entities/model/selectors';
-import { PROJECTS } from '@/entities/project/data';
-import { getProject, isProjectId } from '@/entities/project/selectors';
+import { getProject, getProjects, isProjectId } from '@/entities/project/selectors';
 import { useDocumentTitle } from '@/shared/hooks/useDocumentTitle';
 import { Pill } from '@/shared/ui/Pill';
 import { SectionHeader } from '@/shared/ui/SectionHeader';
@@ -15,6 +14,7 @@ import styles from '@/widgets/models-grid/models.module.css';
 
 export function ModelsPage() {
   useDocumentTitle('Модели — Компьютерный слух');
+  const projects = getProjects();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const rawProject = searchParams.get('project');
@@ -64,7 +64,7 @@ export function ModelsPage() {
           />
         </div>
         <div className={ui.pills} role="group" aria-label="Подпроект">
-          {PROJECTS.map((item) => (
+          {projects.map((item) => (
             <Pill
               key={item.id}
               active={item.id === projectId}

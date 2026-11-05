@@ -1,7 +1,7 @@
 import { lazy, Suspense, useState } from 'react';
 import { Link } from 'react-router-dom';
 import mainPhoto from '../../../images/machine_hearing_main_photo.PNG';
-import { PROJECTS } from '@/entities/project/data';
+import { getProjects } from '@/entities/project/selectors';
 import type { ProjectId } from '@/entities/project/types';
 import { ProjectCard } from './ProjectCard';
 import styles from './hero.module.css';
@@ -16,6 +16,7 @@ interface HeroProps {
 }
 
 export function Hero({ openProjectId = null, onOpenProject }: HeroProps) {
+  const projects = getProjects();
   const [hovered, setHovered] = useState<ProjectId | null>(null);
   const active = hovered ?? openProjectId;
 
@@ -62,7 +63,7 @@ export function Hero({ openProjectId = null, onOpenProject }: HeroProps) {
             <span>ВЫБЕРИТЕ ПОДПРОЕКТ / 04</span>
           </div>
           <div className={styles.projects}>
-            {PROJECTS.map((project, index) => (
+            {projects.map((project, index) => (
               <ProjectCard key={project.id} project={project} index={index} active={active === project.id}
                 onHover={setHovered} onOpen={onOpenProject} />
             ))}

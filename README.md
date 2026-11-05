@@ -43,18 +43,21 @@ src/
   app/                 # роутер, shell, общие стили приложения
   pages/               # Home, Tools, Info, Models, NotFound
   widgets/             # header/footer, hero, 3D-viewer, scatter, grids, modal
-  entities/            # типы, данные и селекторы project/model/dataset
-  shared/              # UI-примитивы, хуки, утилиты, токены
+  entities/            # типы и селекторы project/model/dataset/portal
+  shared/              # UI-примитивы, хуки, утилиты, токены, portal.json
   test/                # настройка vitest
 public/
   models/golf7.glb     # 3D-модель Volkswagen Golf VII
   favicon.svg
 ```
 
-Данные вынесены в `entities/*/data.ts`, расчёты — в чистые функции
-(`shared/lib/scatter.ts`, `entities/model/selectors.ts`), поэтому их можно
-тестировать без DOM. В `src/shared/lib/*.test.ts` покрыты форматирование,
-ID моделей и парето-фронт.
+Данные вынесены в единый golden-файл `shared/data/portal.json`: модели
+вложены в проекты, у каждой модели есть стабильный `id` и блок `weights`
+(ссылки пока `null`). Доступ к данным идёт через `shared/data/portal.ts`.
+Расчёты — в чистых функциях (`shared/lib/scatter.ts`,
+`entities/model/selectors.ts`), поэтому их можно тестировать без DOM.
+В `src/shared/*.test.ts` покрыты форматирование, golden-данные, ID моделей
+и парето-фронт.
 
 ## 3D-сцена
 

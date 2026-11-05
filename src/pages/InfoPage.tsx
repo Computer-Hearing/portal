@@ -1,9 +1,9 @@
 import { useSearchParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import type { Model } from '@/entities/model/types';
+import type { ProjectId } from '@/entities/project/types';
 import { getModelId, getModelStats } from '@/entities/model/selectors';
-import { PROJECTS } from '@/entities/project/data';
-import { getProject, isProjectId } from '@/entities/project/selectors';
+import { getProject, getProjects, isProjectId } from '@/entities/project/selectors';
 import { useDocumentTitle } from '@/shared/hooks/useDocumentTitle';
 import { Pill } from '@/shared/ui/Pill';
 import { SectionHeader } from '@/shared/ui/SectionHeader';
@@ -16,13 +16,14 @@ export function InfoPage() {
   useDocumentTitle('Карта моделей — Компьютерный слух');
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
+  const projects = getProjects();
 
   const rawProject = searchParams.get('project');
   const projectId = isProjectId(rawProject) ? rawProject : 'traffic';
   const project = getProject(projectId);
   const stats = getModelStats(projectId);
 
-  const selectProject = (id: (typeof PROJECTS)[number]['id']) => {
+  const selectProject = (id: ProjectId) => {
     const next = new URLSearchParams(searchParams);
     if (id === 'traffic') next.delete('project');
     else next.set('project', id);
@@ -44,7 +45,7 @@ export function InfoPage() {
           />
         </div>
         <div className={ui.pills} role="group" aria-label="Подпроект">
-          {PROJECTS.map((item) => (
+          {projects.map((item) => (
             <Pill
               key={item.id}
               active={item.id === projectId}
@@ -95,7 +96,7 @@ export function InfoPage() {
       />
 
       <div className={styles.datasetGrid}>
-        {PROJECTS.map((item) => (
+        {projects.map((item) => (
           <DatasetCard key={item.id} project={item} active={item.id === projectId} />
         ))}
       </div>
