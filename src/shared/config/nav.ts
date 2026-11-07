@@ -7,12 +7,7 @@ export interface NavItem {
 
 export const NAV_ITEMS: NavItem[] = [
   { to: '/tools', label: 'Инструменты' },
-  {
-    to: '/inference',
-    label: 'Инференс',
-    disabled: true,
-    title: 'Раздел в разработке',
-  },
+  { to: '/inference', label: 'Инференс' },
   { to: '/info', label: 'Информация' },
   { to: '/models', label: 'Модели' },
 ];

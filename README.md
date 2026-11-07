@@ -27,14 +27,14 @@ npm test         # vitest
 | --- | --- |
 | `/` | Главная: hero, подпроекты, 3D-модель |
 | `/tools` | Инструменты (MLflow, Grafana, Portainer) |
+| `/inference` | Инференс: модуль сервиса audio-inference-service |
 | `/info?project=road` | Карта моделей и датасеты |
 | `/models?project=siren` | Каталог моделей |
 | `/models?project=siren&model=siren-emergencynet` | Раскрытая карточка модели |
 | `/?open=traffic` | Модалка подпроекта |
 
 Параметры `project`, `model` и `open` являются источником состояния:
-ссылки можно шарить, кнопка «назад» работает. Вкладка «Инференс» оставлена
-заглушкой в навигации, без бейджа.
+ссылки можно шарить, кнопка «назад» работает.
 
 ## Структура
 
@@ -58,6 +58,24 @@ public/
 `entities/model/selectors.ts`), поэтому их можно тестировать без DOM.
 В `src/shared/*.test.ts` покрыты форматирование, golden-данные, ID моделей
 и парето-фронт.
+
+## Инференс
+
+Раздел `/inference` — отдельный сервис (репозиторий `audio-inference-service`,
+папка `frontend`). Он собирается в один файл `inference.js`, который раздаёт
+свой Caddy, и портал загружает его во время работы
+(`widgets/inference-embed/InferenceEmbed.tsx`): обновление инференса не
+требует пересборки портала. Интерфейс инференса рисуется внутри Shadow DOM,
+стили портала и инференса друг на друга не влияют; дизайн-токены портала
+(CSS-переменные) инференс использует.
+
+Адрес модуля можно переопределить, например для локальной проверки:
+
+```bash
+VITE_INFERENCE_URL=http://localhost:8080/inference.js npm run dev
+```
+
+По умолчанию — `https://inference.kuronami.fun/inference.js`.
 
 ## 3D-сцена
 
