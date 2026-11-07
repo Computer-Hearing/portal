@@ -1,0 +1,32 @@
+# www.kuronami.fun — портал (одностраничное приложение на React).
+#
+# Портал — только статические файлы: своего API у него нет, а модуль
+# инференса он загружает с inference.kuronami.fun (см. VITE_INFERENCE_URL).
+:80 {
+    encode zstd gzip
+
+    header X-Content-Type-Options "nosniff"
+
+    root * /srv
+
+    # JS и CSS из сборки: в имени файла есть хеш (index-AbC123.js), при
+    # любом изменении имя меняется, поэтому файл можно кешировать "навсегда".
+    # Без перехода на index.html: несуществующий файл — честная ошибка 404,
+    # а не HTML-страница вместо скрипта.
+    handle /assets/* {
+        header Cache-Control "public, max-age=31536000, immutable"
+        file_server
+    }
+
+    # Всё остальное: index.html, favicon, 3D-модель и адреса страниц.
+    # Маршруты (/inference, /models?project=...) существуют только внутри
+    # React Router, файлов с такими именами нет — поэтому для них
+    # отдаём index.html, а нужную страницу дальше покажет сам портал.
+    # no-cache — браузер каждый раз сверяется с сервером, так что после
+    # выкладки новой версии все сразу получают свежий index.html.
+    handle {
+        header Cache-Control "no-cache"
+        try_files {path} /index.html
+        file_server
+    }
+}

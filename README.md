@@ -21,6 +21,38 @@ npm run preview  # предпросмотр production-сборки
 npm test         # vitest
 ```
 
+## Развёртывание
+
+Портал — только статические файлы, их раздаёт один Caddy. Всё нужное для
+этого лежит в `deployments/`, так же как в `audio-inference-service`:
+
+```
+deployments/
+  docker-compose.yaml            # сервис portal_caddy в сети computer-hearing
+  dockerfiles/Caddy.Dockerfile   # node собирает портал -> caddy раздаёт dist/
+  caddy/Caddyfile                # раздача сайта, кеширование, маршруты SPA
+```
+
+```bash
+cd deployments
+docker compose up -d --build
+```
+
+- **Сборка** двухступенчатая: в образе `node` выполняются `npm ci` и
+  `npm run build`, в итоговый образ `caddy` попадают только `dist/` и
+  `Caddyfile`.
+- **Маршруты.** `/inference`, `/models?project=...` и т.п. существуют только
+  внутри React Router, поэтому на любой такой адрес Caddy отдаёт `index.html`.
+  Исключение — `/assets/*`: несуществующий файл там — честная ошибка 404.
+- **Кеширование.** Файлы из `/assets/*` с хешем в имени кешируются «навсегда»;
+  `index.html` и остальное — `no-cache`: браузер каждый раз сверяется с
+  сервером и сразу получает новую версию после выкладки.
+- **Переменные `VITE_*` вшиваются при сборке**, поэтому передаются как
+  аргументы сборки (`build.args` в `docker-compose.yaml`), а не при запуске
+  контейнера. После их изменения образ нужно пересобрать.
+- Внешний шлюз направляет `www.kuronami.fun` на контейнер `portal_caddy:80`
+  в сети `computer-hearing`.
+
 ## Маршруты
 
 | URL | Экран |
