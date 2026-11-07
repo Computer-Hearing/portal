@@ -21,20 +21,52 @@ npm run preview  # предпросмотр production-сборки
 npm test         # vitest
 ```
 
+## Развёртывание
+
+Портал — только статические файлы, их раздаёт один Caddy. Всё нужное для
+этого лежит в `deployments/`, так же как в `audio-inference-service`:
+
+```
+deployments/
+  docker-compose.yaml            # сервис portal_caddy в сети computer-hearing
+  dockerfiles/Caddy.Dockerfile   # node собирает портал -> caddy раздаёт dist/
+  caddy/Caddyfile                # раздача сайта, кеширование, маршруты SPA
+```
+
+```bash
+cd deployments
+docker compose up -d --build
+```
+
+- **Сборка** двухступенчатая: в образе `node` выполняются `npm ci` и
+  `npm run build`, в итоговый образ `caddy` попадают только `dist/` и
+  `Caddyfile`.
+- **Маршруты.** `/inference`, `/models?project=...` и т.п. существуют только
+  внутри React Router, поэтому на любой такой адрес Caddy отдаёт `index.html`.
+  Исключение — `/assets/*`: несуществующий файл там — честная ошибка 404.
+- **Кеширование.** Файлы из `/assets/*` с хешем в имени кешируются «навсегда»;
+  `index.html` и остальное — `no-cache`: браузер каждый раз сверяется с
+  сервером и сразу получает новую версию после выкладки.
+- **Переменные `VITE_*` вшиваются при сборке**, поэтому передаются как
+  аргументы сборки (`build.args` в `docker-compose.yaml`), а не при запуске
+  контейнера. После их изменения образ нужно пересобрать.
+- Внешний шлюз направляет `www.kuronami.fun` на контейнер `portal_caddy:80`
+  в сети `computer-hearing`.
+
 ## Маршруты
 
 | URL | Экран |
 | --- | --- |
 | `/` | Главная: hero, подпроекты, 3D-модель |
 | `/tools` | Инструменты (MLflow, Grafana, Portainer) |
+| `/inference` | Инференс: модуль сервиса audio-inference-service |
 | `/info?project=road` | Карта моделей и датасеты |
 | `/models?project=siren` | Каталог моделей |
 | `/models?project=siren&model=siren-emergencynet` | Раскрытая карточка модели |
 | `/?open=traffic` | Модалка подпроекта |
 
 Параметры `project`, `model` и `open` являются источником состояния:
-ссылки можно шарить, кнопка «назад» работает. Вкладка «Инференс» оставлена
-заглушкой в навигации, без бейджа.
+ссылки можно шарить, кнопка «назад» работает.
 
 ## Структура
 
@@ -58,6 +90,24 @@ public/
 `entities/model/selectors.ts`), поэтому их можно тестировать без DOM.
 В `src/shared/*.test.ts` покрыты форматирование, golden-данные, ID моделей
 и парето-фронт.
+
+## Инференс
+
+Раздел `/inference` — отдельный сервис (репозиторий `audio-inference-service`,
+папка `frontend`). Он собирается в один файл `inference.js`, который раздаёт
+свой Caddy, и портал загружает его во время работы
+(`widgets/inference-embed/InferenceEmbed.tsx`): обновление инференса не
+требует пересборки портала. Интерфейс инференса рисуется внутри Shadow DOM,
+стили портала и инференса друг на друга не влияют; дизайн-токены портала
+(CSS-переменные) инференс использует.
+
+Адрес модуля можно переопределить, например для локальной проверки:
+
+```bash
+VITE_INFERENCE_URL=http://localhost:8080/inference.js npm run dev
+```
+
+По умолчанию — `https://inference.kuronami.fun/inference.js`.
 
 ## 3D-сцена
 

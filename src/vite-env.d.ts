@@ -7,6 +7,7 @@ declare module '*.PNG' {
 
 interface ImportMetaEnv {
   readonly VITE_API_HOST?: string;
+  readonly VITE_INFERENCE_URL?: string;
 }
 
 interface ImportMeta {

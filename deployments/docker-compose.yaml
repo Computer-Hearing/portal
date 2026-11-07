@@ -1,0 +1,31 @@
+# Портал: один Caddy, который раздаёт собранный сайт.
+#
+# Запуск из папки deployments/:
+#   docker compose up -d --build
+#
+# Сеть computer-hearing — общая для сервисов проекта (её же использует
+# audio-inference-service). Внешний шлюз направляет www.kuronami.fun
+# на этот контейнер по имени portal_caddy.
+
+networks:
+  computer-hearing:
+    external: true
+
+services:
+  caddy:
+    networks:
+      computer-hearing:
+        aliases:
+          - portal_caddy
+    container_name: portal_caddy
+    build:
+      context: ..
+      dockerfile: deployments/dockerfiles/Caddy.Dockerfile
+      args:
+        # Откуда портал загружает модуль инференса
+        VITE_INFERENCE_URL: ${VITE_INFERENCE_URL:-https://inference.kuronami.fun/inference.js}
+        # Хост API для примеров на странице моделей; без него — [API_HOST]
+        # VITE_API_HOST: https://api.example.com
+    expose:
+      - "80"
+    restart: always
