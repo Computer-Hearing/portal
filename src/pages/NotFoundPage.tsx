@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import { useDocumentTitle } from '@/shared/hooks/useDocumentTitle';
-import { SectionHeader } from '@/shared/ui/SectionHeader';
-import ui from '@/shared/ui/ui.module.css';
+import { useDocumentTitle } from '@/lib/hooks';
+import { SectionHeader } from '@/ui/ui';
+import ui from '@/ui/ui.module.css';
 
 export function NotFoundPage() {
   useDocumentTitle('Страница не найдена — Компьютерный слух');

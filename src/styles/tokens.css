@@ -1,0 +1,71 @@
+:root {
+  /* «Сцена»: тёплый чёрный фон, на котором едет автомобиль; содержимое —
+     в прямоугольных полупрозрачных панелях поверх него. Один приглушённый
+     бирюзовый акцент. Скруглений нет. */
+  --bg: #0d0d0c;
+  --stage-glow: #1c1b18;
+
+  /* Поверхности полупрозрачные: сквозь них угадывается сцена */
+  --panel: rgba(13, 13, 12, 0.76);
+  --panel-blur: blur(14px);
+  --surface-1: rgba(19, 19, 17, 0.86);
+  --surface-2: rgba(26, 26, 23, 0.88);
+  --surface-3: rgba(34, 33, 30, 0.9);
+  --surface-hover: rgba(30, 30, 27, 0.9);
+  --surface-tab-hover: rgba(30, 30, 27, 0.9);
+
+  --border-faint: #1a1917;
+  --border-soft: #201f1c;
+  --border-grid: #24231f;
+  --border: #2b2a26;
+  --border-strong: #3a3833;
+  --border-hover: #5a5750;
+
+  --text: #edebe6;
+  --text-2: #d3d0c9;
+  --text-3: #b9b6ae;
+  --text-muted: #8c8a84;
+  --text-disabled: #6f6d67;
+  --text-faint: #45433e;
+
+  --project-traffic: #7fb9d9;
+  --project-road: #a9c47c;
+  --project-siren: #e58f86;
+  --project-diag: #dcb675;
+
+  --accent: #7fc7bd;
+  --accent-hover: #a3dbd3;
+  --accent-link: #a3dbd3;
+  --accent-ink: #071c19;
+  --accent-line: #7fc7bd;
+  --accent-soft: rgba(127, 199, 189, 0.5);
+  --accent-ring: rgba(127, 199, 189, 0.14);
+  --accent-ring-hover: rgba(127, 199, 189, 0.3);
+
+  --glow: none;
+  --glow-line: drop-shadow(0 0 3px rgba(127, 199, 189, 0.5));
+
+  --font-sans: 'Golos Text', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --container: calc(1360px + 2 * var(--gutter));
+  --gutter: 32px;
+  --control-h: 44px;
+
+  /* Скругления выключены везде. Токены оставлены, чтобы их читал
+     встроенный модуль инференса. */
+  --radius-badge: 0;
+  --radius-code: 0;
+  --radius-control: 0;
+  --radius-panel: 0;
+  --radius-block: 0;
+  --radius-card: 0;
+  --radius-section: 0;
+  --radius-modal: 0;
+  --radius-pill: 0;
+}
+
+[data-project='traffic'] { --project-color: var(--project-traffic); }
+[data-project='road'] { --project-color: var(--project-road); }
+[data-project='siren'] { --project-color: var(--project-siren); }
+[data-project='diag'] { --project-color: var(--project-diag); }
