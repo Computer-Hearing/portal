@@ -1,0 +1,82 @@
+/* Оболочка приложения: разметка страницы и меню «Разделы». */
+
+/* === Разметка страницы ================================================= */
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: var(--text);
+}
+
+/* Содержимое лежит поверх сцены с автомобилем. Сам контейнер и пустые места
+   в нём не перехватывают мышь — сквозь них сцену можно крутить; блоки
+   содержимого (второй уровень вложенности) работают как обычно.
+   :where() не добавляет веса селектору, поэтому любой блок может
+   переопределить pointer-events у себя. */
+.main {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 auto;
+  min-width: 0;
+  pointer-events: none;
+  /* Появление содержимого при переходе между разделами. Именно backwards,
+     а не both: после завершения анимация не должна оставлять transform —
+     иначе закреплённые элементы внутри (плеер инференса) привязались бы
+     к этому блоку, а не к окну. */
+  animation: pageIn 420ms cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+}
+:where(.main > * > *) {
+  pointer-events: auto;
+}
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* === Меню «Разделы» ===================================================== */
+
+.header {
+  position: fixed;
+  inset: 0 0 0 auto;
+  width: min(370px, calc(100vw - 24px));
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border: 0;
+  border-left: 1px solid var(--border-strong);
+  background: var(--surface-1);
+  color: var(--text);
+  box-shadow: -24px 0 80px rgba(0, 0, 0, 0.4);
+}
+.header[open] { animation: slideIn 260ms cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.header::backdrop { background: rgba(0, 0, 0, 0.55); backdrop-filter: blur(4px); animation: fadeIn 260ms ease both; }
+.panelContent { display: flex; flex-direction: column; min-height: 100%; padding: 24px 26px 30px; }
+.panelTop { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.railCaption { color: var(--text-muted); font: 9px/1.5 var(--font-mono); letter-spacing: 0.13em; }
+.closeButton { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid var(--border); background: transparent; color: var(--text-3); cursor: pointer; }
+.closeButton:hover { background: var(--surface-3); color: var(--text); }
+.panelTitle { margin: 36px 0 24px; font-size: 27px; line-height: 1.2; font-weight: 500; letter-spacing: -0.035em; }
+.nav { display: flex; flex-direction: column; gap: 8px; }
+.navItem { position: relative; appearance: none; display: flex; align-items: center; gap: 16px; min-height: 62px; padding: 16px 14px; border: 1px solid transparent; background: transparent; color: var(--text-3); text-decoration: none; text-align: left; font-size: 16px; transition: color 180ms, background 180ms, border-color 180ms; }
+.navItem:hover { background: var(--surface-3); color: var(--text); }
+.index { color: var(--text-muted); font: 9px/1 var(--font-mono); }
+.active, .active:hover { border-color: var(--accent-ring-hover); background: var(--accent-ring); color: var(--accent-link); }
+.active .index { color: var(--accent-link); }
+.navArrow { margin-left: auto; font-size: 19px; opacity: 0; }
+.active .navArrow, .navItem:hover .navArrow { opacity: 1; }
+.railFooter { margin-top: auto; padding-top: 44px; color: var(--text-muted); font: 9px/1.9 var(--font-mono); }
+.statusDot { display: inline-block; width: 5px; height: 5px; margin-right: 6px; background: var(--accent); border-radius: 50%; }
+.menuToggle { position: fixed; top: 24px; right: 24px; z-index: 20; display: flex; align-items: center; gap: 18px; min-height: 44px; padding: 10px 15px; border: 1px solid var(--border-strong); background: var(--panel); backdrop-filter: var(--panel-blur); color: var(--text); font-size: 12px; cursor: pointer; }
+.menuToggle svg { color: var(--accent-link); }
+.menuToggle:hover { border-color: var(--accent-soft); }
+@keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@media (max-width: 600px) {
+  .menuToggle { top: 16px; right: 16px; }
+  .panelContent { padding: 16px 20px 24px; }
+}

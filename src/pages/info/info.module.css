@@ -1,0 +1,164 @@
+/* Страница «Информация»: карта моделей и карточки датасетов. */
+
+/* === info.module.css ============================================================ */
+
+.scatterCard {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-section);
+  background: var(--surface-2);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.chartHeader {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+}
+
+.chartTitle {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  font: 400 13px/1.4 var(--font-mono);
+  color: var(--text-3);
+}
+
+.stats b {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  font-size: 13px;
+  color: var(--text-3);
+}
+
+.legendItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legendDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.legendBest {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 3px solid var(--accent);
+  background: var(--bg);
+  box-sizing: content-box;
+}
+
+.datasetGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 560px), 1fr));
+  gap: 20px;
+}
+
+@media (max-width: 640px) {
+  .scatterCard {
+    padding: 18px;
+  }
+
+  .stats {
+    gap: 12px;
+  }
+}
+
+/* === datasets.module.css =============================================== */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 560px), 1fr));
+  gap: 20px;
+}
+
+.card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-section);
+  background: var(--surface-2);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.active {
+  border-color: var(--accent);
+  box-shadow: var(--glow);
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.code {
+  font: 500 12px/1 var(--font-mono);
+  color: var(--accent-link);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-code);
+  padding: 6px 8px;
+}
+
+.name {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.description {
+  margin: 0;
+  color: var(--text-2);
+}
+
+.dataset {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.datasetLabel {
+  font: 500 12px/1 var(--font-mono);
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+.note {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text-3);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: auto;
+}

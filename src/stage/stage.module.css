@@ -1,0 +1,41 @@
+/* Сцена с автомобилем — неподвижный фон под содержимым всех страниц. */
+
+.stage {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(ellipse at 66% 58%, var(--stage-glow), var(--bg) 62%);
+  transition: opacity 600ms ease;
+}
+
+/* Вне первого экрана главной сцена уходит на задний план */
+.dimmed {
+  opacity: 0.34;
+}
+
+.canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  /* Горизонтальный жест крутит сцену, вертикальный — прокручивает страницу */
+  touch-action: pan-y;
+  opacity: 0;
+  transition: opacity 900ms ease;
+}
+.canvas:active {
+  cursor: grabbing;
+}
+.canvasReady {
+  opacity: 1;
+}
+
+.status {
+  position: absolute;
+  right: var(--gutter);
+  bottom: 24px;
+  color: var(--text-muted);
+  font: 10px/1 var(--font-mono);
+  letter-spacing: 0.08em;
+  pointer-events: none;
+}
