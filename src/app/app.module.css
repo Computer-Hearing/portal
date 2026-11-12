@@ -9,6 +9,36 @@
   color: var(--text);
 }
 
+/* Фон с автомобилем: закреплён на весь экран под содержимым всех страниц.
+   Внутри — холст живой сцены (src/stage) или готовое изображение. */
+.stage {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(ellipse at 66% 58%, var(--stage-glow), var(--bg) 62%);
+  transition: opacity 600ms ease;
+}
+/* Вне первого экрана главной фон уходит на задний план */
+.stageDimmed {
+  opacity: 0.34;
+}
+/* Статичный фон: тот же ракурс, что у живой сцены на главной */
+.stageImage {
+  position: absolute;
+  inset: 0;
+  background: url('../stage/backdrop-wide.webp') 70% 50% / cover no-repeat;
+}
+/* Телефоны: автомобиль в верхней части экрана, книзу растворяется в фоне */
+@media (max-width: 900px) {
+  .stage { background: var(--bg); }
+  .stageImage {
+    bottom: auto;
+    aspect-ratio: 3 / 2;
+    background: url('../stage/backdrop-phone.webp') center / cover no-repeat;
+    mask-image: linear-gradient(#000 55%, transparent);
+  }
+}
+
 /* Содержимое лежит поверх сцены с автомобилем. Сам контейнер и пустые места
    в нём не перехватывают мышь — сквозь них сцену можно крутить; блоки
    содержимого (второй уровень вложенности) работают как обычно.
@@ -71,7 +101,7 @@
 .active .navArrow, .navItem:hover .navArrow { opacity: 1; }
 .railFooter { margin-top: auto; padding-top: 44px; color: var(--text-muted); font: 9px/1.9 var(--font-mono); }
 .statusDot { display: inline-block; width: 5px; height: 5px; margin-right: 6px; background: var(--accent); border-radius: 50%; }
-.menuToggle { position: fixed; top: 24px; right: 24px; z-index: 20; display: flex; align-items: center; gap: 18px; min-height: 44px; padding: 10px 15px; border: 1px solid var(--border-strong); background: var(--panel); backdrop-filter: var(--panel-blur); color: var(--text); font-size: 12px; cursor: pointer; }
+.menuToggle { position: fixed; top: 24px; right: 24px; z-index: 20; display: flex; align-items: center; gap: 18px; min-height: 44px; padding: 10px 15px; border: 1px solid var(--border-strong); background: var(--panel); color: var(--text); font-size: 12px; cursor: pointer; }
 .menuToggle svg { color: var(--accent-link); }
 .menuToggle:hover { border-color: var(--accent-soft); }
 @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }

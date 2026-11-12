@@ -2,14 +2,20 @@
 // дороге (вращаются колёса, навстречу бежит дорога). Камерой управляет
 // camera.ts: её можно крутить мышью, а при смене раздела она перелетает
 // к новому ракурсу.
+//
+// Сцена рисуется только когда на ней что-то меняется. Пока она на заднем
+// плане (setIdle), автомобиль стоит, и кадры не рисуются вовсе — до тех пор,
+// пока камеру не сдвинут.
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
+import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js';
 import { createCameraRig } from './camera';
 import { createRoad } from './road';
 import type { StageView } from './views';
-
-const MODEL_URL = `${import.meta.env.BASE_URL}models/golf7.glb`;
+// Модель сжата (scripts/optimize-model.mjs); Vite добавит в имя файла хеш,
+// поэтому браузер может кешировать её надолго
+import modelUrl from './golf7.glb?url';
 
 // Цвета сцены совпадают с токенами портала (--bg, --accent)
 const BACKGROUND = 0x0d0d0c;
@@ -25,18 +31,32 @@ const WHEEL_RADIUS = 0.385; // м
 const WHEEL_NODES = ['WHEEL_LF', 'WHEEL_RF', 'WHEEL_LR', 'WHEEL_RR'];
 
 const MAX_PIXEL_RATIO = 1.75;
+// Не чаще 60 кадров в секунду: на экранах 120 Гц лишние кадры только греют
+// устройство. Допуск 10 % — на погрешность таймера браузера.
+const MIN_FRAME_MS = (1000 / 60) * 0.9;
+
+// Проверка скорости: первую секунду езды сцена «разогревается», следующие
+// три — считаются кадры. Если их мало, устройство со сценой не справляется.
+const PROBE_WARMUP = 1; // с
+const PROBE_TIME = 3; // с
+const MIN_FPS = 24;
 
 export interface StageScene {
   /** Перелететь к ракурсу; `immediate` — встать в него сразу, без перелёта */
   setView(view: StageView, immediate?: boolean): void;
   /** Включить или выключить движение (prefers-reduced-motion) */
   setMotion(enabled: boolean): void;
+  /** Сцена на заднем плане: автомобиль стоит, кадры рисуются только при движении камеры */
+  setIdle(idle: boolean): void;
   dispose(): void;
 }
 
 interface StageCallbacks {
   onReady: () => void;
-  onError: () => void;
+  /** Устройство не справляется: сцена выдаёт слишком мало кадров */
+  onSlow: () => void;
+  /** Модель не загрузилась */
+  onUnavailable: () => void;
 }
 
 /** Тёмное пятно под автомобилем вместо настоящих теней */
@@ -131,9 +151,17 @@ function disposeObject(root: THREE.Object3D): void {
 
 export function createStageScene(
   canvas: HTMLCanvasElement,
-  { onReady, onError }: StageCallbacks,
+  { onReady, onSlow, onUnavailable }: StageCallbacks,
 ): StageScene {
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  // failIfMajorPerformanceCaveat: без аппаратного ускорения браузер рисовал бы
+  // сцену процессором — в этом случае она не создаётся вовсе (будет ошибка)
+  const renderer = new THREE.WebGLRenderer({
+    canvas,
+    antialias: true,
+    alpha: true,
+    powerPreference: 'high-performance',
+    failIfMajorPerformanceCaveat: true,
+  });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, MAX_PIXEL_RATIO));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -158,7 +186,12 @@ export function createStageScene(
 
   let wheels: THREE.Group[] = [];
   let motion = true;
+  let idle = false;
   let disposed = false;
+  let stale = true; // кадр устарел: изменился размер или загрузилась модель
+  let probing = true;
+  let probeTime = 0; // сколько секунд езды прошло с начала проверки
+  let probeFrames = 0;
 
   // --- Размер -------------------------------------------------------------
 
@@ -170,6 +203,7 @@ export function createStageScene(
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
     rig.resize();
+    stale = true;
   };
   const resizeObserver = new ResizeObserver(resize);
   resizeObserver.observe(canvas);
@@ -177,8 +211,8 @@ export function createStageScene(
 
   // --- Модель ---------------------------------------------------------------
 
-  new GLTFLoader().load(
-    MODEL_URL,
+  new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).load(
+    modelUrl,
     (gltf) => {
       if (disposed) {
         disposeObject(gltf.scene);
@@ -194,11 +228,12 @@ export function createStageScene(
       car.add(gltf.scene);
       car.position.set(-center.x, -box.min.y, -center.z);
       scene.add(car);
+      stale = true;
       onReady();
     },
     undefined,
     () => {
-      if (!disposed) onError();
+      if (!disposed) onUnavailable();
     },
   );
 
@@ -207,25 +242,42 @@ export function createStageScene(
   const timer = new THREE.Timer();
   timer.connect(document);
   let animationFrame = 0;
+  let lastFrame = 0;
 
-  const render = () => {
+  /** Считает кадры, пока автомобиль едет, и сообщает, если их слишком мало */
+  const probeSpeed = (delta: number) => {
+    probeTime += delta;
+    if (probeTime < PROBE_WARMUP) return;
+    probeFrames += 1;
+    if (probeTime < PROBE_WARMUP + PROBE_TIME) return;
+    probing = false;
+    if (probeFrames / PROBE_TIME < MIN_FPS) onSlow();
+  };
+
+  const render = (now: number) => {
     animationFrame = requestAnimationFrame(render);
-    if (document.hidden) return;
+    if (document.hidden || now - lastFrame < MIN_FRAME_MS) return;
+    lastFrame = now;
 
     timer.update();
+    const elapsed = timer.getDelta();
     // После возврата на вкладку не «проматываем» накопившееся время
-    const delta = Math.min(timer.getDelta(), 0.1);
+    const delta = Math.min(elapsed, 0.1);
 
-    if (motion) {
+    const driving = motion && !idle && wheels.length > 0;
+    if (driving) {
       const distance = SPEED * delta;
       road.advance(distance);
       for (const wheel of wheels) wheel.rotation.x += distance / WHEEL_RADIUS;
+      if (probing) probeSpeed(elapsed);
     }
 
-    rig.update(delta, motion);
+    const cameraMoved = rig.update(delta, motion, driving);
+    if (!driving && !cameraMoved && !stale) return;
+    stale = false;
     renderer.render(scene, camera);
   };
-  render();
+  animationFrame = requestAnimationFrame(render);
 
   return {
     setView(view, immediate = false) {
@@ -233,6 +285,9 @@ export function createStageScene(
     },
     setMotion(enabled) {
       motion = enabled;
+    },
+    setIdle(value) {
+      idle = value;
     },
     dispose() {
       disposed = true;

@@ -1,5 +1,5 @@
-/* Главная страница: первый экран поверх сцены с автомобилем, фотография,
-   команды и модалка подпроекта. */
+/* Главная страница: первый экран поверх сцены с автомобилем, команды
+   и модалка подпроекта. */
 
 /* === Первый экран ====================================================== */
 
@@ -24,12 +24,12 @@
   padding: 36px;
   border: 1px solid var(--border);
   background: var(--panel);
-  backdrop-filter: var(--panel-blur);
   animation: reveal 650ms 80ms ease both;
 }
 .kicker { font: 500 9px/1 var(--font-mono); letter-spacing: 0.12em; color: var(--text-muted); }
-.title { margin: 18px 0 18px; font-size: clamp(30px, 2.9vw, 44px); line-height: 1.08; letter-spacing: -0.045em; font-weight: 500; }
-.title > span { color: var(--text-muted); }
+.title { margin: 18px 0 10px; font-size: clamp(34px, 3.3vw, 50px); line-height: 1.05; letter-spacing: -0.045em; font-weight: 500; }
+.slogan { margin: 0 0 20px; font-size: clamp(16px, 1.4vw, 20px); line-height: 1.3; letter-spacing: -0.02em; color: var(--text-2); }
+.slogan > span { color: var(--text-muted); }
 .lead { margin: 0 0 12px; font-size: 14px; line-height: 1.65; color: var(--text-2); }
 .descriptionText { margin: 0; font-size: 12px; line-height: 1.75; color: var(--text-muted); }
 .exploreLink { display: inline-flex; align-items: center; gap: 28px; margin-top: 22px; font-size: 12px; text-decoration: none; }
@@ -63,7 +63,7 @@
 .signal { display: flex; gap: 3px; align-items: center; color: var(--accent); }
 .signal i { width: 2px; max-height: 20px; background: currentColor; opacity: 0.65; }
 .projects { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
-.project { appearance: none; position: relative; display: flex; flex-direction: column; align-items: start; width: 100%; min-height: clamp(132px, 15svh, 164px); padding: 14px; border: 1px solid color-mix(in srgb, var(--project-color) 25%, var(--border)); background: var(--panel); backdrop-filter: var(--panel-blur); text-align: left; color: var(--text); cursor: pointer; transition: border-color 180ms, transform 180ms, background 180ms; animation: reveal 650ms 160ms ease backwards; }
+.project { appearance: none; position: relative; display: flex; flex-direction: column; align-items: start; width: 100%; min-height: clamp(132px, 15svh, 164px); padding: 14px; border: 1px solid color-mix(in srgb, var(--project-color) 25%, var(--border)); background: var(--panel); text-align: left; color: var(--text); cursor: pointer; transition: border-color 180ms, transform 180ms, background 180ms; animation: reveal 650ms 160ms ease backwards; }
 .project:nth-child(2) { animation-delay: 220ms; }
 .project:nth-child(3) { animation-delay: 280ms; }
 .project:nth-child(4) { animation-delay: 340ms; }
@@ -79,12 +79,18 @@
 
 @keyframes reveal { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-/* === Фотография ======================================================== */
+/* Переключатель фона: живая сцена или изображение */
+.stageSwitch { appearance: none; padding: 6px 10px; border: 1px solid var(--border-strong); background: var(--panel); color: var(--text-3); font: 10px/1 var(--font-mono); letter-spacing: 0.04em; cursor: pointer; pointer-events: auto; }
+.stageSwitch:hover { border-color: var(--border-hover); color: var(--text); }
 
-.photoSection { max-width: var(--container); margin: 8px auto 0; padding: 0 var(--gutter); }
-.photoBanner { position: relative; overflow: hidden; border: 1px solid var(--border); background: var(--panel); }
-.photoBanner::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 45%, transparent 45%, rgba(0, 0, 0, 0.45) 100%); }
-.mainPhoto { display: block; width: 100%; height: auto; max-height: 62svh; object-fit: cover; object-position: 50% 88%; }
+/* Предложение сменить фон: плашка в углу окна, как уведомление о cookie */
+.offer { position: fixed; left: var(--gutter); bottom: 24px; z-index: 30; display: flex; flex-direction: column; gap: 14px; width: min(380px, calc(100vw - 2 * var(--gutter))); padding: 18px 20px; border: 1px solid var(--border-strong); background: var(--surface-2); box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5); animation: reveal 500ms 900ms ease both; }
+.offer p { margin: 0; font-size: 12px; line-height: 1.6; color: var(--text-2); }
+.offerActions { display: flex; gap: 8px; }
+.offerActions button { appearance: none; padding: 9px 12px; border: 1px solid var(--border-strong); background: none; color: var(--text-2); font: 500 11px/1 var(--font-sans, inherit); cursor: pointer; }
+.offerActions button:hover { border-color: var(--border-hover); color: var(--text); }
+.offerActions .offerPrimary { border-color: var(--accent); background: var(--accent); color: var(--bg); }
+.offerActions .offerPrimary:hover { color: var(--bg); filter: brightness(1.08); }
 
 @media (max-width: 1100px) and (min-width: 901px) {
   .hero { grid-template-columns: minmax(0, 400px) minmax(0, 1fr); gap: 22px 28px; }
@@ -94,17 +100,16 @@
   .projectName { font-size: 13px; }
   .caption { display: none; }
 }
-/* Телефоны и узкие окна: автомобиль виден в верхней части экрана
-   (сцена сама поднимает его выше), содержимое идёт под ним в одну колонку */
+/* Телефоны и узкие окна: изображение автомобиля занимает верх экрана
+   (app/app.module.css), содержимое идёт под ним в одну колонку */
 @media (max-width: 900px) {
-  .hero { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; padding: 46svh 20px 24px; gap: 20px; }
+  .hero { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; min-height: 0; padding: 56vw 20px 24px; gap: 20px; }
   .platform { grid-row: 1; align-self: start; justify-self: start; align-items: start; text-align: left; }
   .heroPanel { padding: 24px; }
-  .title { font-size: 32px; }
+  .title { font-size: 34px; }
   .caption { display: none; }
   .projects { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .project { min-height: 150px; }
-  .photoSection { padding: 0 20px; }
 }
 @media (max-width: 600px) {
   .hero { padding-inline: 16px; }
@@ -112,7 +117,6 @@
   .project { padding: 12px; }
   .sectionHeading > span { font-size: 7px; }
   .sectionHeading h2 { font-size: 12px; }
-  .photoSection { padding: 0 16px; }
 }
 
 /* === Команды =========================================================== */
@@ -125,7 +129,6 @@
   padding: 48px 40px 12px;
   border: 1px solid var(--border);
   background: var(--surface-1);
-  backdrop-filter: var(--panel-blur);
 }
 
 .intro { display: grid; grid-template-columns: 1fr 1fr; align-items: end; gap: 48px; margin-bottom: 40px; }

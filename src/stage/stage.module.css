@@ -1,17 +1,4 @@
-/* Сцена с автомобилем — неподвижный фон под содержимым всех страниц. */
-
-.stage {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  background: radial-gradient(ellipse at 66% 58%, var(--stage-glow), var(--bg) 62%);
-  transition: opacity 600ms ease;
-}
-
-/* Вне первого экрана главной сцена уходит на задний план */
-.dimmed {
-  opacity: 0.34;
-}
+/* Холст живой сцены. Сам фон (и его приглушение) — в app/app.module.css. */
 
 .canvas {
   display: block;
