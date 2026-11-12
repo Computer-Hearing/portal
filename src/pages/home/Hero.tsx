@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import mainPhoto from '../../../images/machine_hearing_main_photo.PNG';
 import { getProjects } from '@/data/portal';
 import type { Project, ProjectId } from '@/data/portal';
+import type { StageControl } from '@/stage/support';
 import { RotateIcon } from '@/ui/icons';
 import { cn } from '@/ui/ui';
 import styles from './home.module.css';
@@ -37,74 +37,74 @@ function ProjectCard({ project, index, active, onOpen }: ProjectCardProps) {
 }
 
 interface HeroProps {
+  stage: StageControl;
   openProjectId?: ProjectId | null;
   onOpenProject: (projectId: ProjectId) => void;
 }
 
-export function Hero({ openProjectId = null, onOpenProject }: HeroProps) {
+export function Hero({ stage, openProjectId = null, onOpenProject }: HeroProps) {
+  const live = stage.mode === 'live';
   const projects = getProjects();
 
   return (
-    <>
-      {/* Первый экран. Автомобиль едет на сцене позади страницы (src/stage),
-          поэтому справа место оставлено свободным: его видно и можно крутить. */}
-      <section className={styles.hero} aria-labelledby="home-title">
-        <div className={styles.heroPanel}>
-          <span className={styles.kicker}>RESEARCH / ACOUSTIC PERCEPTION</span>
-          <h1 id="home-title" className={styles.title}>Слышать больше.<br /><span>Понимать раньше.</span></h1>
-          <p className={styles.lead}>
-            Компьютерный слух для беспилотных автомобилей — система акустического
-            восприятия окружающего мира и состояния самой машины.
-          </p>
-          <p className={styles.descriptionText}>
-            Массив микрофонов и нейросети распознают транспорт, дорожное покрытие,
-            сирены и неисправности. Информация передаётся в системы восприятия
-            и планирования движения — чтобы автомобиль замечал то, что скрыто от камер.
-          </p>
-          <Link to="/info" className={styles.exploreLink}>Модели и данные <span aria-hidden="true">↗</span></Link>
-        </div>
+    /* Первый экран. Автомобиль — на фоне позади страницы (src/stage),
+       поэтому справа место оставлено свободным. */
+    <section className={styles.hero} aria-labelledby="home-title">
+      <div className={styles.heroPanel}>
+        <span className={styles.kicker}>RESEARCH / ACOUSTIC PERCEPTION</span>
+        <h1 id="home-title" className={styles.title}>Компьютерный слух</h1>
+        <p className={styles.slogan}>Слышать больше. <span>Понимать раньше.</span></p>
+        <p className={styles.lead}>
+          Система акустического восприятия для беспилотных автомобилей:
+          она слышит окружающий мир и состояние самой машины.
+        </p>
+        <p className={styles.descriptionText}>
+          Массив микрофонов и нейросети распознают транспорт, дорожное покрытие,
+          сирены и неисправности. Информация передаётся в системы восприятия
+          и планирования движения — чтобы автомобиль замечал то, что скрыто от камер.
+        </p>
+        <Link to="/info" className={styles.exploreLink}>Модели и данные <span aria-hidden="true">↗</span></Link>
+      </div>
 
-        <div className={styles.platform}>
-          <span className={styles.kicker}>ТЕСТОВАЯ ПЛАТФОРМА</span>
-          <span className={styles.platformTitle}>Volkswagen Golf VII</span>
-          <span className={styles.rotateHint}><RotateIcon size={12} /> Потяните, чтобы вращать</span>
-          {/* Модель распространяется по лицензии CC BY 4.0, она требует указывать автора */}
-          <p className={styles.modelCredit}>
-            3D-модель:{' '}
-            <a href="https://sketchfab.com/3d-models/volkswagen-golf-7-mk7-3c86d324d56f4027b08cbd7ba5f10bbb"
-              target="_blank" rel="noopener noreferrer">Volkswagen Golf 7 mk7</a>
-            {' '}— DR1KING100K,{' '}
-            <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank"
-              rel="noopener noreferrer">CC BY 4.0</a>
-          </p>
-        </div>
+      <div className={styles.platform}>
+        <span className={styles.kicker}>ТЕСТОВАЯ ПЛАТФОРМА</span>
+        <span className={styles.platformTitle}>Volkswagen Golf VII</span>
+        {live ? <span className={styles.rotateHint}><RotateIcon size={12} /> Потяните, чтобы вращать</span> : null}
+        {/* Переключатель фона; на телефонах живой сцены нет, и его тоже */}
+        {stage.canLive ? (
+          <button type="button" className={styles.stageSwitch}
+            onClick={() => stage.choose(live ? 'static' : 'live')}>
+            {live ? 'Статичный фон' : 'Живая 3D-сцена'}
+          </button>
+        ) : null}
+        {/* Модель распространяется по лицензии CC BY 4.0, она требует указывать автора */}
+        <p className={styles.modelCredit}>
+          3D-модель:{' '}
+          <a href="https://sketchfab.com/3d-models/volkswagen-golf-7-mk7-3c86d324d56f4027b08cbd7ba5f10bbb"
+            target="_blank" rel="noopener noreferrer">Volkswagen Golf 7 mk7</a>
+          {' '}— DR1KING100K,{' '}
+          <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank"
+            rel="noopener noreferrer">CC BY 4.0</a>
+        </p>
+      </div>
 
-        <div className={styles.directions}>
-          <div className={styles.sectionHeading}>
-            <h2>Направления исследования</h2>
-            <span className={styles.caption}>
-              <span className={styles.captionIndex}>01 — 04</span>
-              Одна платформа. Четыре направления восприятия.
-              <span className={styles.signal} aria-hidden="true">{[8, 16, 27, 13, 36, 22, 12, 30, 19, 9].map((height, i) => <i key={i} style={{ height }} />)}</span>
-            </span>
-            <span>ВЫБЕРИТЕ ПОДПРОЕКТ / 04</span>
-          </div>
-          <div className={styles.projects}>
-            {projects.map((project, index) => (
-              <ProjectCard key={project.id} project={project} index={index}
-                active={openProjectId === project.id} onOpen={onOpenProject} />
-            ))}
-          </div>
+      <div className={styles.directions}>
+        <div className={styles.sectionHeading}>
+          <h2>Направления исследования</h2>
+          <span className={styles.caption}>
+            <span className={styles.captionIndex}>01 — 04</span>
+            Одна платформа. Четыре направления восприятия.
+            <span className={styles.signal} aria-hidden="true">{[8, 16, 27, 13, 36, 22, 12, 30, 19, 9].map((height, i) => <i key={i} style={{ height }} />)}</span>
+          </span>
+          <span>ВЫБЕРИТЕ ПОДПРОЕКТ / 04</span>
         </div>
-      </section>
-
-      <section className={styles.photoSection} aria-label="Фотография проекта">
-        <div className={styles.photoBanner}>
-          <img src={mainPhoto} width="1895" height="830" loading="lazy"
-            alt="Компьютерный слух — городская улица со светофорами"
-            className={styles.mainPhoto} />
+        <div className={styles.projects}>
+          {projects.map((project, index) => (
+            <ProjectCard key={project.id} project={project} index={index}
+              active={openProjectId === project.id} onOpen={onOpenProject} />
+          ))}
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }

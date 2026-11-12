@@ -3,6 +3,7 @@
 //  - перелёт к ракурсу раздела (flyTo);
 //  - перетаскивание мышью или пальцем, с инерцией после отпускания;
 //  - медленное авто-вращение, пока сцену никто не трогает.
+// update() сообщает, изменился ли вид: если нет, сцену можно не перерисовывать.
 //
 // Колесо мыши и вертикальный жест не перехватываются: они прокручивают
 // страницу (на холсте стоит touch-action: pan-y, см. stage.module.css).
@@ -16,6 +17,8 @@ const MAX_POLAR = Math.PI * 0.47; // ниже нельзя — камера уш
 const FLY_RATE = 2.6; // чем больше, тем быстрее камера долетает до ракурса
 const AUTO_ROTATE = 0.04; // рад/с
 const INERTIA_DECAY = 4; // чем больше, тем быстрее гаснет инерция
+const MIN_SPIN = 0.002; // рад/с: медленнее — инерция считается погасшей
+const SHIFT_STEP = 0.0005; // доля экрана: ближе — сдвиг считается законченным
 
 const radians = THREE.MathUtils.degToRad;
 const { clamp, lerp, euclideanModulo } = THREE.MathUtils;
@@ -23,8 +26,11 @@ const { clamp, lerp, euclideanModulo } = THREE.MathUtils;
 export interface CameraRig {
   /** Перелететь к ракурсу; `immediate` — встать в него сразу */
   flyTo(view: StageView, immediate?: boolean): void;
-  /** Шаг анимации; `motion: false` — без авто-вращения, инерции и плавности */
-  update(delta: number, motion: boolean): void;
+  /**
+   * Шаг анимации. `motion: false` — без инерции и плавности; `cruising` —
+   * медленное авто-вращение. Возвращает true, если вид изменился.
+   */
+  update(delta: number, motion: boolean, cruising: boolean): boolean;
   /** Вызывать после изменения размеров холста */
   resize(): void;
   dispose(): void;
@@ -41,6 +47,8 @@ export function createCameraRig(
 
   let goal: StageView | null = null;
   let flying = false;
+  let settling = false; // сдвиг на экране ещё доводится до цели
+  let moved = true; // вид менялся вне update(): перетаскивание, новый ракурс, размер
   let dragging = false;
   let spin = 0; // угловая скорость после отпускания, рад/с
   let lastX = 0;
@@ -75,8 +83,10 @@ export function createCameraRig(
     const view = fit(goal);
 
     // Сдвиг на экране доводится всегда, даже если камеру перехватил пользователь
-    shift.x = lerp(shift.x, view.shiftX, amount);
-    shift.y = lerp(shift.y, view.shiftY, amount);
+    settling =
+      Math.abs(view.shiftX - shift.x) > SHIFT_STEP || Math.abs(view.shiftY - shift.y) > SHIFT_STEP;
+    shift.x = lerp(shift.x, view.shiftX, settling ? amount : 1);
+    shift.y = lerp(shift.y, view.shiftY, settling ? amount : 1);
     if (!flying) return;
 
     // К нужному углу — по кратчайшей дуге
@@ -112,6 +122,7 @@ export function createCameraRig(
     const turn = -(event.clientX - lastX) * scale;
     pose.azimuth += turn;
     pose.polar = clamp(pose.polar - (event.clientY - lastY) * scale, MIN_POLAR, MAX_POLAR);
+    moved = true;
 
     const now = performance.now();
     const elapsed = Math.max(now - lastMove, 1) / 1000;
@@ -138,22 +149,27 @@ export function createCameraRig(
     flyTo(view, immediate = false) {
       goal = view;
       flying = true;
-      if (immediate) {
-        approachGoal(1);
-        apply();
-      }
+      moved = true;
+      if (immediate) approachGoal(1);
     },
-    update(delta, motion) {
+    update(delta, motion, cruising) {
+      let changed = moved || flying;
+      moved = false;
       approachGoal(motion ? 1 - Math.exp(-FLY_RATE * delta) : 1);
 
-      if (motion && !dragging && !flying) {
-        pose.azimuth += (spin + AUTO_ROTATE) * delta;
+      // Инерция после перетаскивания и авто-вращение
+      const turning = motion && !dragging && !flying && (cruising || Math.abs(spin) > MIN_SPIN);
+      if (turning) {
+        pose.azimuth += (spin + (cruising ? AUTO_ROTATE : 0)) * delta;
         spin *= Math.exp(-INERTIA_DECAY * delta);
       }
-      apply();
+
+      changed ||= settling || turning;
+      if (changed) apply();
+      return changed;
     },
     resize() {
-      apply();
+      moved = true;
     },
     dispose() {
       canvas.removeEventListener('pointerdown', onPointerDown);

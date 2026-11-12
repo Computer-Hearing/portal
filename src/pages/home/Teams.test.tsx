@@ -27,11 +27,11 @@ describe('Teams', () => {
     expect(ml?.textContent).toContain('программное обеспечение для тестирования');
   });
 
-  it('uses the three PNG images with lazy loading and descriptive alt text', () => {
+  it('uses the three WebP images with lazy loading and descriptive alt text', () => {
     const photos = [...renderTeams().querySelectorAll('img')];
     expect(photos).toHaveLength(3);
     photos.forEach((photo) => {
-      expect(photo.getAttribute('src')).toMatch(/\.png$/);
+      expect(photo.getAttribute('src')).toMatch(/\.webp$/);
       expect(photo.getAttribute('loading')).toBe('lazy');
       expect(photo.getAttribute('alt')?.length).toBeGreaterThan(20);
       expect(Number(photo.getAttribute('width'))).toBeGreaterThan(0);

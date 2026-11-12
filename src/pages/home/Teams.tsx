@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import localizationPhoto from '../../../images/localization.png';
-import datasetPhoto from '../../../images/microphone1.png';
-import installationPhoto from '../../../images/ustanovka.png';
+import localizationPhoto from '../../../images/localization.webp';
+import datasetPhoto from '../../../images/microphone1.webp';
+import installationPhoto from '../../../images/ustanovka.webp';
 import styles from './home.module.css';
 
 export function Teams() {

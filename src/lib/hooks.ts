@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useSyncExternalStore } from 'react';
 
 export function useDocumentTitle(title: string): void {
   useEffect(() => {
@@ -6,22 +6,21 @@ export function useDocumentTitle(title: string): void {
   }, [title]);
 }
 
-const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
+/** Следит за медиа-запросом CSS: true, пока он выполняется */
+export function useMediaQuery(query: string): boolean {
+  const subscribe = useCallback(
+    (onChange: () => void) => {
+      const media = window.matchMedia(query);
+      media.addEventListener('change', onChange);
+      return () => media.removeEventListener('change', onChange);
+    },
+    [query],
+  );
+  return useSyncExternalStore(subscribe, () => window.matchMedia(query).matches);
+}
 
 export function usePrefersReducedMotion(): boolean {
-  const [reduced, setReduced] = useState(() => {
-    if (typeof window === 'undefined') return false;
-    return window.matchMedia(REDUCED_MOTION_QUERY).matches;
-  });
-
-  useEffect(() => {
-    const media = window.matchMedia(REDUCED_MOTION_QUERY);
-    const onChange = () => setReduced(media.matches);
-    media.addEventListener('change', onChange);
-    return () => media.removeEventListener('change', onChange);
-  }, []);
-
-  return reduced;
+  return useMediaQuery('(prefers-reduced-motion: reduce)');
 }
 
 /** true, когда страница прокручена дальше `fraction` высоты окна */
